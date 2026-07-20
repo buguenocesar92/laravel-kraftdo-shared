@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 
 /**
  * Endpoints del módulo de onboarding guiado.
+ *
+ * No extiende el Controller base de la app: es un controlador del paquete y
+ * cada proyecto tiene el suyo. Solo usa `$request->validate()`, que vive en el
+ * Request, no en el Controller.
  */
-class OnboardingController extends Controller
+class OnboardingController
 {
     /**
      * Devuelve el tour aplicable al usuario autenticado para un sistema dado,
