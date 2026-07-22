@@ -2,8 +2,8 @@
 
 namespace Kraftdo\Shared\Persona\Resolvers;
 
-use Kraftdo\Shared\Persona\PersonaResolverInterface;
 use Kraftdo\Shared\Persona\PersonaDTO;
+use Kraftdo\Shared\Persona\PersonaResolverInterface;
 
 /**
  * Implementación local buscando en la base de datos local.

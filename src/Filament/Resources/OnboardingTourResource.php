@@ -2,11 +2,6 @@
 
 namespace Kraftdo\Shared\Filament\Resources;
 
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\CreateOnboardingTour;
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\EditOnboardingTour;
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\ListOnboardingTours;
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\RelationManagers\ProgressRelationManager;
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\RelationManagers\StepsRelationManager;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -20,6 +15,11 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\CreateOnboardingTour;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\EditOnboardingTour;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages\ListOnboardingTours;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\RelationManagers\ProgressRelationManager;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource\RelationManagers\StepsRelationManager;
 use Kraftdo\Shared\Onboarding\OnboardingTour;
 use Spatie\Permission\Models\Role;
 

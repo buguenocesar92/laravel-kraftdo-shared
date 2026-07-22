@@ -2,8 +2,8 @@
 
 namespace Kraftdo\Shared\Filament\Resources\ActivityResource\Pages;
 
-use Kraftdo\Shared\Filament\Resources\ActivityResource;
 use Filament\Resources\Pages\ListRecords;
+use Kraftdo\Shared\Filament\Resources\ActivityResource;
 
 class ListActivities extends ListRecords
 {

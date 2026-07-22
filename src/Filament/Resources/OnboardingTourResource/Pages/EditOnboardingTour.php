@@ -2,9 +2,9 @@
 
 namespace Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages;
 
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 
 class EditOnboardingTour extends EditRecord
 {

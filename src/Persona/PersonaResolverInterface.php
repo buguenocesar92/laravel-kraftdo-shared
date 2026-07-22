@@ -2,8 +2,6 @@
 
 namespace Kraftdo\Shared\Persona;
 
-use Kraftdo\Shared\Persona\PersonaDTO;
-
 /**
  * Contrato del resolvedor de personas.
  *

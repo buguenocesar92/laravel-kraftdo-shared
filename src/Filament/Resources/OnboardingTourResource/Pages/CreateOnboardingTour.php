@@ -2,8 +2,8 @@
 
 namespace Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages;
 
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 use Filament\Resources\Pages\CreateRecord;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 
 class CreateOnboardingTour extends CreateRecord
 {

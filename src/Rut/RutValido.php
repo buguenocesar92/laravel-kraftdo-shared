@@ -2,7 +2,6 @@
 
 namespace Kraftdo\Shared\Rut;
 
-use Kraftdo\Shared\Rut\RutHelper;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 

@@ -2,9 +2,9 @@
 
 namespace Kraftdo\Shared\Filament\Resources\OnboardingTourResource\Pages;
 
-use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Kraftdo\Shared\Filament\Resources\OnboardingTourResource;
 
 class ListOnboardingTours extends ListRecords
 {

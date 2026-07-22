@@ -2,9 +2,6 @@
 
 namespace Kraftdo\Shared\Onboarding;
 
-use Kraftdo\Shared\Onboarding\OnboardingProgress;
-use Kraftdo\Shared\Onboarding\OnboardingStep;
-use Kraftdo\Shared\Onboarding\OnboardingTour;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
