@@ -3,6 +3,7 @@
 namespace Kraftdo\Shared\Health;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
 use Throwable;
 
@@ -67,6 +68,38 @@ class SaludEcosistema
             'ts' => now()->toIso8601String(),
             'checks' => $checks,
         ];
+    }
+
+    /**
+     * Chequeo estándar de un microservicio del ecosistema.
+     *
+     * Todos (ocr, docintel, vision, chatbot-guard) exponen `GET /health` con
+     * `{"ok": true}`, así que el chequeo es idéntico en los cuatro sistemas y no
+     * tiene por qué repetirse en cada `routes/web.php`.
+     *
+     * Un microservicio apagado por configuración NO es una avería: el sistema
+     * está usando su motor local a propósito.
+     *
+     * @param  bool  $activo  si el sistema está configurado para usarlo
+     * @param  string  $url  cualquier URL del micro; se le deriva `/health`
+     */
+    public static function microOk(bool $activo, string $url, int $timeout = 5): bool
+    {
+        if (! $activo || $url === '') {
+            return true;
+        }
+
+        $partes = parse_url($url);
+        if (! isset($partes['host'])) {
+            return true; // URL inservible: no se inventa una avería
+        }
+
+        $base = ($partes['scheme'] ?? 'http').'://'.$partes['host']
+            .(isset($partes['port']) ? ':'.$partes['port'] : '');
+
+        $respuesta = Http::timeout($timeout)->acceptJson()->get($base.'/health');
+
+        return $respuesta->successful() && $respuesta->json('ok') === true;
     }
 
     /**

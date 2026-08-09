@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Kraftdo\Shared\Health\SaludEcosistema;
 
 /**
@@ -103,4 +104,47 @@ it('mide la latencia de cada chequeo', function () {
     $reporte = (new SaludEcosistema)->reporte();
 
     expect($reporte['checks']['base_datos']['ms'])->toBeInt()->toBeGreaterThanOrEqual(0);
+});
+
+/**
+ * Los microservicios del ecosistema (ocr, docintel, vision, chatbot-guard) exponen
+ * todos `GET /health` devolviendo `{"ok": true}`. El chequeo es el mismo en los
+ * cuatro sistemas: vive acá para no repetirlo en cada routes/web.php.
+ */
+it('da por sano un microservicio que no está activo', function () {
+    Http::fake();
+
+    expect(SaludEcosistema::microOk(false, 'http://ocr:8000/ocr'))->toBeTrue();
+
+    Http::assertNothingSent();
+});
+
+it('da por sano un microservicio activo sin url configurada', function () {
+    expect(SaludEcosistema::microOk(true, ''))->toBeTrue();
+});
+
+it('consulta /health y acepta ok true', function () {
+    Http::fake(['*/health' => Http::response(['ok' => true])]);
+
+    expect(SaludEcosistema::microOk(true, 'http://ocr:8000/ocr'))->toBeTrue();
+});
+
+it('rechaza el microservicio que responde error', function () {
+    Http::fake(['*' => Http::response('', 500)]);
+
+    expect(SaludEcosistema::microOk(true, 'http://ocr:8000/ocr'))->toBeFalse();
+});
+
+it('rechaza el microservicio que responde ok false', function () {
+    Http::fake(['*/health' => Http::response(['ok' => false])]);
+
+    expect(SaludEcosistema::microOk(true, 'http://ocr:8000/ocr'))->toBeFalse();
+});
+
+it('deriva /health de la url del microservicio sin importar su ruta', function () {
+    Http::fake(['*' => Http::response(['ok' => true])]);
+
+    SaludEcosistema::microOk(true, 'http://ocr:8000/ocr');
+
+    Http::assertSent(fn ($peticion): bool => $peticion->url() === 'http://ocr:8000/health');
 });
