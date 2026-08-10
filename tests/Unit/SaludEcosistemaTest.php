@@ -148,3 +148,45 @@ it('deriva /health de la url del microservicio sin importar su ruta', function (
 
     Http::assertSent(fn ($peticion): bool => $peticion->url() === 'http://ocr:8000/health');
 });
+
+/**
+ * Un microservicio apagado por configuración no es una avería, pero decir que
+ * está "ok" es engañoso: en producción el reporte mostraba `ocr: ok` cuando el
+ * OCR remoto estaba apagado y corriendo el motor local. Quien mira el tablero
+ * asume que está encendido. Un tercer estado lo dice sin inventar una falla.
+ */
+it('reporta inactivo el microservicio apagado, sin degradar el sistema', function () {
+    Http::fake();
+
+    $reporte = (new SaludEcosistema)
+        ->conMicroservicio('ocr', activo: false, url: 'http://ocr:8000/ocr')
+        ->reporte();
+
+    expect($reporte['checks']['ocr']['estado'])->toBe('inactivo')
+        ->and($reporte['checks']['ocr']['detalle'])->toBe('apagado por configuración')
+        ->and($reporte['estado'])->toBe('ok');
+
+    Http::assertNothingSent();
+});
+
+it('reporta ok el microservicio encendido que responde', function () {
+    Http::fake(['*/health' => Http::response(['ok' => true])]);
+
+    $reporte = (new SaludEcosistema)
+        ->conMicroservicio('ocr', activo: true, url: 'http://ocr:8000/ocr')
+        ->reporte();
+
+    expect($reporte['checks']['ocr']['estado'])->toBe('ok')
+        ->and($reporte['estado'])->toBe('ok');
+});
+
+it('degrada cuando el microservicio encendido no responde', function () {
+    Http::fake(['*' => Http::response('', 500)]);
+
+    $reporte = (new SaludEcosistema)
+        ->conMicroservicio('ocr', activo: true, url: 'http://ocr:8000/ocr')
+        ->reporte();
+
+    expect($reporte['checks']['ocr']['estado'])->toBe('caido')
+        ->and($reporte['estado'])->toBe('degradado');
+});

@@ -54,11 +54,18 @@ class SaludEcosistema
             'disco' => $this->chequearDisco(),
         ];
 
+        foreach ($this->micros as $nombre => $m) {
+            $checks[$nombre] = $m['activo']
+                ? $this->medir(fn (): bool => self::microOk(true, $m['url']))
+                : ['estado' => 'inactivo', 'detalle' => 'apagado por configuración', 'ms' => 0];
+        }
+
         foreach ($this->extra as $nombre => $chequeo) {
             $checks[$nombre] = $this->medir($chequeo);
         }
 
-        $global = collect($checks)->every(fn (array $c): bool => $c['estado'] === 'ok')
+        // `inactivo` no degrada: es una decisión de configuración, no una avería.
+        $global = collect($checks)->every(fn (array $c): bool => in_array($c['estado'], ['ok', 'inactivo'], true))
             ? 'ok'
             : 'degradado';
 
@@ -68,6 +75,29 @@ class SaludEcosistema
             'ts' => now()->toIso8601String(),
             'checks' => $checks,
         ];
+    }
+
+    /** @var array<string, array{activo: bool, url: string}> */
+    private array $micros = [];
+
+    /**
+     * Declara un microservicio del ecosistema con su estado de configuración.
+     *
+     * Frente a `conExtra()` + `microOk()`, esto distingue un tercer caso: un
+     * micro apagado a propósito se reporta `inactivo` en vez de `ok`. Decir "ok"
+     * de algo que no está corriendo es engañoso —en producción el reporte
+     * mostraba `ocr: ok` con el OCR remoto apagado— y quien mira el tablero
+     * asume que está encendido. `inactivo` no degrada el estado global: es
+     * información, no una falla.
+     *
+     * @param  bool  $activo  si el sistema está configurado para usarlo
+     * @param  string  $url  cualquier URL del micro; se le deriva `/health`
+     */
+    public function conMicroservicio(string $nombre, bool $activo, string $url): static
+    {
+        $this->micros[$nombre] = ['activo' => $activo, 'url' => $url];
+
+        return $this;
     }
 
     /**
