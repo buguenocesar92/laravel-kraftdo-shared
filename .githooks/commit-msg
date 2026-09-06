@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# ──────────────────────────────────────────────────────────────────────────────
+# commit-msg — KraftDo SpA
+#
+# Rechaza cualquier atribución a una IA en el mensaje de commit. La autoría de
+# los commits de KraftDo es personal; las herramientas que se usen para escribir
+# el código no van firmadas en el historial. Como varias las agregan solas por
+# defecto, la barrera tiene que ser automática y no depender de acordarse.
+#
+# Saltárselo puntualmente:  git commit --no-verify
+# ──────────────────────────────────────────────────────────────────────────────
+set -euo pipefail
+
+archivo_mensaje="$1"
+
+# Se ignoran las líneas de comentario (#) que git agrega en el editor.
+mensaje="$(grep -v '^[[:space:]]*#' "$archivo_mensaje" || true)"
+
+patron_ia='co-authored-by:[[:space:]]*(claude|chatgpt|gpt|copilot|gemini|codex|cursor|devin|anthropic|openai)'
+patron_ia+='|noreply@anthropic\.com'
+patron_ia+='|@users\.noreply\.(openai|githubcopilot)\.com'
+patron_ia+='|(generated|created|written|assisted)[[:space:]]+(with|by)[[:space:]]+(claude|chatgpt|copilot|gemini|codex|cursor|ai)'
+patron_ia+='|🤖[[:space:]]*generated'
+
+if printf '%s\n' "$mensaje" | grep -qiE "$patron_ia"; then
+    echo "" >&2
+    echo "❌ commit-msg: el mensaje atribuye el commit a una IA. Se canceló." >&2
+    echo "   Quita la línea de co-autoría o la firma de la herramienta y reintenta." >&2
+    printf '%s\n' "$mensaje" | grep -inE "$patron_ia" | sed 's/^/   > /' >&2
+    exit 1
+fi
+
+exit 0

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# ──────────────────────────────────────────────────────────────────────────────
+# pre-commit — KraftDo SpA
+#
+# Revisa lo que se va a commitear ANTES de que entre al historial:
+#   1. Secretos (gitleaks) — un secreto commiteado ya no se borra: queda en el
+#      historial aunque se elimine el archivo en el commit siguiente.
+#   2. Formato PHP (Pint) — solo en los repos que lo tengan instalado.
+#
+# Instalación (una vez por clon):  git config core.hooksPath .githooks
+# Saltárselo puntualmente:         git commit --no-verify
+# ──────────────────────────────────────────────────────────────────────────────
+set -euo pipefail
+
+# ── 1. Secretos ───────────────────────────────────────────────────────────────
+# gitleaks cambió de CLI entre versiones: hasta 8.18 el escaneo de lo staged es
+# `protect --staged`; desde 8.19 es `git --pre-commit --staged`. Se detecta cuál
+# soporta el binario instalado para que el hook siga funcionando al actualizarlo.
+# Si no está instalado se ABORTA: un hook de seguridad que pasa en silencio da
+# una falsa sensación de cobertura, que es peor que no tenerlo.
+if ! command -v gitleaks >/dev/null 2>&1; then
+    echo "" >&2
+    echo "❌ pre-commit: gitleaks no está instalado; no se puede revisar si hay secretos." >&2
+    echo "   Instálalo desde github.com/gitleaks/gitleaks y vuelve a commitear." >&2
+    echo "   Si de verdad hace falta saltarlo:  git commit --no-verify" >&2
+    exit 1
+fi
+
+if gitleaks git --pre-commit --staged --help >/dev/null 2>&1; then
+    GITLEAKS_CMD=(gitleaks git --pre-commit --staged)   # gitleaks >= 8.19
+else
+    GITLEAKS_CMD=(gitleaks protect --staged)            # gitleaks <= 8.18
+fi
+
+escaneo_ok=0
+"${GITLEAKS_CMD[@]}" --redact --no-banner -v || escaneo_ok=$?
+if [ "$escaneo_ok" -ne 0 ]; then
+    echo "" >&2
+    echo "❌ pre-commit: gitleaks detectó un posible secreto en los archivos staged." >&2
+    echo "   El commit se canceló. Saca el valor del código y déjalo en .env." >&2
+    echo "   Si es un falso positivo, agrega la excepción en .gitleaks.toml." >&2
+    exit 1
+fi
+
+# ── 2. Formato PHP ────────────────────────────────────────────────────────────
+mapfile -d '' -t STAGED_PHP < <(git diff --cached --name-only --diff-filter=ACMR -z -- '*.php')
+[ ${#STAGED_PHP[@]} -eq 0 ] && exit 0
+
+PINT="./vendor/bin/pint"
+if [ ! -x "$PINT" ]; then
+    exit 0
+fi
+
+echo "pre-commit: formateando ${#STAGED_PHP[@]} archivo(s) PHP con Pint…"
+"$PINT" --quiet "${STAGED_PHP[@]}" || true
+
+# Re-agrega solo lo que Pint tocó, para que el commit lleve el formato aplicado.
+reformateados=0
+for archivo in "${STAGED_PHP[@]}"; do
+    if [ -f "$archivo" ] && ! git diff --quiet -- "$archivo"; then
+        git add -- "$archivo"
+        reformateados=1
+    fi
+done
+[ "$reformateados" -eq 1 ] && echo "pre-commit: Pint aplicó formato y se incluyó en el commit."
+
+exit 0

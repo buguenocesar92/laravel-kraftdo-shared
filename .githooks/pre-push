@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# ──────────────────────────────────────────────────────────────────────────────
+# pre-push — KraftDo SpA
+#
+# Bloquea el envío directo a la rama de producción (`main` / `master`). Estos
+# repositorios son privados en una cuenta sin protección de rama del lado del
+# servidor, así que el único corte posible es local. El flujo es
+# rama de trabajo → develop → main por PR, nunca un push directo.
+#
+# Si de verdad hace falta saltarlo:  git push --no-verify
+# ──────────────────────────────────────────────────────────────────────────────
+set -euo pipefail
+
+destino_protegido=""
+
+# git entrega por stdin una línea por ref a enviar:
+#   <ref local> <sha local> <ref remota> <sha remoto>
+while read -r _ref_local _sha_local ref_remota _sha_remoto; do
+    case "$ref_remota" in
+        refs/heads/main | refs/heads/master)
+            destino_protegido="${ref_remota#refs/heads/}"
+            ;;
+    esac
+done
+
+if [ -n "$destino_protegido" ]; then
+    echo "" >&2
+    echo "❌ pre-push: envío directo a «$destino_protegido» bloqueado." >&2
+    echo "   El trabajo entra por «develop» y sube a «$destino_protegido» por PR." >&2
+    echo "   Si de verdad hace falta:  git push --no-verify" >&2
+    exit 1
+fi
+
+exit 0

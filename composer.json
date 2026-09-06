@@ -47,6 +47,12 @@
         }
     },
     "scripts": {
-        "test": "pest"
+        "test": "pest",
+        "post-install-cmd": [
+            "@php -r \"if (is_dir('.git')) { exec('git config core.hooksPath .githooks'); }\""
+        ],
+        "post-update-cmd": [
+            "@php -r \"if (is_dir('.git')) { exec('git config core.hooksPath .githooks'); }\""
+        ]
     }
 }
