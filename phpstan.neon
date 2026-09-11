@@ -5,3 +5,24 @@ parameters:
     level: 8
     paths:
         - src
+
+    # NO es un baseline: un baseline vuelca automáticamente TODO lo que
+    # encuentre, sin que nadie explique por qué. Esto es una lista corta,
+    # escrita a mano, de la causa raíz de cada hallazgo que queda fuera de una
+    # pasada por ser una limitación conocida de PHPStan y no un error real.
+    # Nuevo código que dispare cualquiera de estos identificadores en
+    # cualquier OTRO archivo sí rompe el CI.
+    ignoreErrors:
+        # Los traits de aserto (`Assert*`) solo los usan los tests de cada
+        # adoptante (`tests/Feature/EnvExampleCompletoTest.php` de cada
+        # sistema, y el equivalente para los permisos bajo Octane y el
+        # segundo factor): dentro de ESTE paquete el único `uses()` está en la
+        # prueba del propio trait, que le pasa los argumentos a mano, y
+        # PHPStan no puede inferir el tipo de `$this` en un trait sin ver un
+        # sitio que lo use. Ver el docblock de cada trait.
+        -
+            identifier: trait.unused
+            paths:
+                - src/Testing/AssertEnvExampleCompleto.php
+                - src/Testing/AssertPermisosNoSeQuedanPegados.php
+                - src/Testing/AssertSegundoFactorNoSeRegala.php

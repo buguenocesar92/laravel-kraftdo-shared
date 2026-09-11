@@ -11,17 +11,16 @@ use RecursiveIteratorIterator;
  * TODA clave que un `env(...)` real lee en `config/` tiene que estar
  * declarada en `.env.example`, aunque sea comentada.
  *
- * Nace de la auditoría del ecosistema (2026-08-30, hallazgo #15): licencias
- * tenía 134 claves fuera del ejemplo —incluidas `REVERB_APP_KEY` y las
- * `CLAVEUNICA_*`—, discapacidad 130, feria 125. Sin esto, quien clona el
- * repo copia un `.env.example` que parece completo y arranca con la
+ * Nace de la auditoría del ecosistema (2026-08-30, hallazgo #15): un sistema
+ * real llegó a tener más de cien claves fuera del ejemplo. Sin esto, quien
+ * clona el repo copia un `.env.example` que parece completo y arranca con la
  * configuración de fábrica en variables que nunca se entera que existen: es
  * el mismo defecto de fondo que documenta
  * `gotcha_config_ausente_defaults_silenciosos`, pero a nivel de cada clave y
  * no de cada archivo.
  *
  * Vive en el paquete —no en cada sistema— para arreglarse una sola vez y
- * correr en los 12 CI: cada adoptante solo necesita `tests/Feature/
+ * correr en el CI de cada sistema: cada adoptante solo necesita `tests/Feature/
  * EnvExampleCompletoTest.php` con `assertEnvExampleCompleto()` (ver el trait
  * `AssertEnvExampleCompleto`).
  *

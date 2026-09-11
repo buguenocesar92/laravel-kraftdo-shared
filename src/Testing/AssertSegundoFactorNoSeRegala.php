@@ -23,8 +23,8 @@ use PHPUnit\Framework\Assert;
  * `APP_ENV=testing` y lo que se quiere ejercitar es qué pasaría con la
  * configuración de producción. Sin el argumento, mira el entorno real.
  *
- * Es un trait de PHPUnit y no depende de Pest: `atencionvecino` corre PHPUnit 11
- * y lo puede usar igual desde su `TestCase`.
+ * Es un trait de PHPUnit y no depende de Pest: un sistema que corra PHPUnit sin
+ * Pest lo puede usar igual desde su `TestCase`.
  */
 trait AssertSegundoFactorNoSeRegala
 {

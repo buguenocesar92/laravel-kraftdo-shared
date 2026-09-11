@@ -9,7 +9,7 @@ use PHPUnit\Framework\Assert;
 
 /**
  * Lo único que cada sistema adoptante tiene que escribir para custodiar la única
- * línea municipal de su `config/permission.php`:
+ * línea propia de su `config/permission.php`:
  *
  *     use Kraftdo\Shared\Testing\AssertPermisosNoSeQuedanPegados;
  *
@@ -20,7 +20,7 @@ use PHPUnit\Framework\Assert;
  *     });
  *
  * Sin argumentos detecta sola si el sistema corre sobre Octane. Es un trait de
- * PHPUnit y no depende de Pest: `atencionvecino` corre PHPUnit 11 y lo puede
+ * PHPUnit y no depende de Pest: un sistema que corra PHPUnit sin Pest lo puede
  * usar igual desde un `TestCase` propio.
  */
 trait AssertPermisosNoSeQuedanPegados
