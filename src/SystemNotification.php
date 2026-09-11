@@ -9,15 +9,15 @@ use Illuminate\Notifications\Notification;
 /**
  * Clase base de todas las notificaciones del sistema.
  *
- * Centraliza el canal por defecto (correo) y un constructor de MailMessage ya
- * "marcado" con el saludo y la firma institucional. Las subclases solo aportan
- * el asunto y la vista Markdown con el contenido — el logo, los colores y el
- * pie salen del tema "graneros" (config/mail.php → resources/views/vendor/mail).
+ * Centraliza el canal por defecto (correo) y un constructor de MailMessage con
+ * el asunto y la vista Markdown. Las subclases solo aportan esas dos cosas; el
+ * logo, los colores y el pie salen del tema de correo que publique cada sistema
+ * (config/mail.php → resources/views/vendor/mail).
  *
- * Para que una notificación se procese en segundo plano (cola Redis del worker)
- * basta con que la subclase implemente Illuminate\Contracts\Queue\ShouldQueue.
- * Las sensibles a la latencia (p. ej. el código MFA) NO lo implementan y se
- * envían de forma síncrona.
+ * Para que una notificación se procese en segundo plano basta con que la
+ * subclase implemente Illuminate\Contracts\Queue\ShouldQueue. Las sensibles a
+ * la latencia (el código del segundo factor, por ejemplo) NO lo implementan y
+ * se envían en el acto.
  */
 abstract class SystemNotification extends Notification
 {
@@ -36,7 +36,7 @@ abstract class SystemNotification extends Notification
 
     /**
      * Construye un MailMessage con la vista Markdown indicada. La vista hereda
-     * automáticamente el layout institucional (logo + paleta Graneros).
+     * el layout de correo del sistema.
      *
      * @param  array<string, mixed>  $data
      */

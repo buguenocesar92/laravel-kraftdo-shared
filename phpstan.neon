@@ -26,3 +26,13 @@ parameters:
                 - src/Testing/AssertEnvExampleCompleto.php
                 - src/Testing/AssertPermisosNoSeQuedanPegados.php
                 - src/Testing/AssertSegundoFactorNoSeRegala.php
+
+        # `SystemNotification::correo()` recibe la vista como `string`, no
+        # `view-string`: quién decide qué vista Markdown usar es la subclase, y
+        # esa vista vive en el sistema adoptante, no en este paquete. Fijar
+        # `view-string` acá delegaría en Larastan la comprobación de una vista
+        # que el paquete ni siquiera puede ver.
+        -
+            identifier: argument.type
+            paths:
+                - src/SystemNotification.php
