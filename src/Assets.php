@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\File;
 /**
  * URLs de assets de ruta fija con versión automática.
  *
- * Portado desde `app/Helpers/assets.php`, que vivía en 7 de los 8 sistemas
- * (idéntico salvo un `declare(strict_types=1)` en licencias).
+ * Portado desde `app/Helpers/assets.php`, que vivía copiado en cada sistema.
  *
  * La versión sale del `mtime` del archivo: cualquier cambio del archivo cambia
  * la URL y revienta el caché de todos los clientes sin ediciones manuales ni

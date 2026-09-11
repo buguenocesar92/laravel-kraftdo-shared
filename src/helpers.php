@@ -12,7 +12,7 @@ if (! function_exists('asset_versionado')) {
      * (imágenes, fuentes, css de proveedor); el bundle de Vite ya se versiona
      * solo por hash de archivo.
      *
-     * Es el mismo nombre que ya usan las plantillas Blade de siete sistemas, y
+     * Es el mismo nombre que ya usan las plantillas Blade de los sistemas, y
      * conserva la guarda `function_exists` del original: mientras dura la
      * adopción, el `app/Helpers/assets.php` del sistema y este archivo pueden
      * convivir sin un fatal por redeclaración. Toda la lógica está en

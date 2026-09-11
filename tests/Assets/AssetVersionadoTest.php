@@ -5,8 +5,7 @@ use Kraftdo\Shared\Assets;
 
 /**
  * `asset_versionado()` vivía en `app/Helpers/assets.php`, cargado por
- * `autoload.files`, en 7 de los 8 sistemas (idéntico salvo un
- * `declare(strict_types=1)` en licencias).
+ * `autoload.files`, copiado en cada sistema.
  *
  * El paquete expone las dos formas y eso es deliberado: la CLASE
  * (`Assets::versionado()`) es lo que se prueba y lo que ve PHPStan, y la FUNCIÓN
@@ -19,7 +18,7 @@ use Kraftdo\Shared\Assets;
  * redeclaración.
  */
 beforeEach(function () {
-    $this->publico = sys_get_temp_dir().'/muni-assets-'.bin2hex(random_bytes(4));
+    $this->publico = sys_get_temp_dir().'/kraftdo-assets-'.bin2hex(random_bytes(4));
     File::ensureDirectoryExists($this->publico.'/sitio/css');
     $this->app->usePublicPath($this->publico);
 });
