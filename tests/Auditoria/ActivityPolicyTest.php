@@ -7,14 +7,7 @@ use Spatie\Activitylog\Models\Activity;
 /**
  * Misma forma que `RolePolicyTest`: cada método delega en el permiso
  * homónimo (`view_any_activity`, …) que Filament Shield genera para el
- * Resource de auditoría (`spatie/laravel-activitylog`). Portada byte a byte
- * desde `App\Policies\ActivityPolicy`, idéntica en 6 de los 8 sistemas.
- *
- * `feria-graneros` diverge SOLO en estilo (tipa `App\Models\User` en vez de
- * `Illuminate\Foundation\Auth\User`, sin `declare(strict_types=1)`, con
- * docblocks en vez de nada): es una generación más vieja de Filament Shield,
- * no una regla de negocio distinta — mismo comportamiento, así que también
- * queda cubierta por esta versión.
+ * Resource de auditoría (`spatie/laravel-activitylog`).
  */
 dataset('acciones_de_activity_policy', [
     'viewAny' => ['viewAny', 'view_any_activity', false],

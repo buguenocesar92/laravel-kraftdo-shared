@@ -10,13 +10,8 @@ use Spatie\Activitylog\Models\Activity;
  * Política del Resource de auditoría del panel (Filament + Filament Shield +
  * spatie/laravel-activitylog).
  *
- * Byte a byte idéntica en 6 de los 8 sistemas del ecosistema (licencias,
- * discapacidad, seguridad, control-acceso, web, rrhh). `feria-graneros`
- * traía una versión funcionalmente idéntica pero de una generación más
- * vieja de Filament Shield (tipaba `App\Models\User`, sin
- * `declare(strict_types=1)`, con docblocks); esta versión la reemplaza sin
- * cambiar ningún permiso. `atencionvecino` no tiene panel Filament ni
- * spatie/laravel-activitylog.
+ * Delega en el permiso homónimo que Filament Shield genera para el Resource
+ * de auditoría; no hardcodea ningún nombre de rol.
  */
 class ActivityPolicy
 {

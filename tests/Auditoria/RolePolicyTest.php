@@ -10,9 +10,6 @@ use Spatie\Permission\Models\Role;
  * que Filament Shield muestra como checkbox en la pantalla de Roles. Por eso
  * el candado no es "¿qué rol puede?" sino "¿el método llama al permiso que
  * dice llamar, en los dos sentidos?": con permiso autoriza, sin permiso niega.
- *
- * Portada byte a byte desde `App\Policies\RolePolicy`, idéntica en 7 de los 8
- * sistemas del ecosistema (atencionvecino no tiene panel Filament).
  */
 dataset('acciones_de_role_policy', [
     'viewAny' => ['viewAny', 'view_any_role', false],

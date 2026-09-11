@@ -2,10 +2,10 @@
 
 namespace Kraftdo\Shared\Filament\Resources\ActivityResource\Pages;
 
-use Filament\Resources\Pages\ListRecords;
+use Kraftdo\Shared\Auditoria\Pages\ListActivitiesBase;
 use Kraftdo\Shared\Filament\Resources\ActivityResource;
 
-class ListActivities extends ListRecords
+class ListActivities extends ListActivitiesBase
 {
     protected static string $resource = ActivityResource::class;
 }

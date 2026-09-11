@@ -9,14 +9,11 @@ use Spatie\Permission\Models\Role;
 /**
  * Política del Resource de Roles del panel (Filament + Filament Shield).
  *
- * Byte a byte idéntica en 7 de los 8 sistemas del ecosistema (licencias,
- * discapacidad, seguridad, control-acceso, web, rrhh, feria; atencionvecino
- * no tiene panel Filament ni spatie/laravel-permission). No decide nada por
- * dominio: cada método delega en el permiso homónimo que Filament Shield
- * genera y muestra como checkbox en la pantalla de Roles
+ * No decide nada por dominio: cada método delega en el permiso homónimo que
+ * Filament Shield genera y muestra como checkbox en la pantalla de Roles
  * (`view_any_role`, `create_role`, …), así que no hay ningún nombre de rol
  * (`super_admin` vs `administrador`) que hardcodear acá — eso lo resuelve
- * `Gate::before` en cada sistema, fuera de esta política.
+ * `Gate::before` en cada sistema consumidor, fuera de esta política.
  */
 class RolePolicy
 {
