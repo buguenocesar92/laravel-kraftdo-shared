@@ -13,6 +13,16 @@ cambio aquí afecta a los cuatro a la vez: trátalo con más cuidado que a un re
 - `Filament/` — `KraftdoSharedPlugin` + recursos (Activity, OnboardingTour).
 - `Casts/EncryptedSeguro` — cast para cifrar PII en reposo.
 
+## Sesiones en paralelo (Claude Code / Gemini Antigravity / terminal manual)
+
+Varias sesiones de Claude Code y Gemini Antigravity trabajan sobre las mismas
+copias de trabajo de `~/Dev`, esta incluida. Antes de tocar nada:
+`~/Dev/scripts/sesion estado .`. Al empezar: `sesion tomar . "qué vas a
+hacer"`. Al terminar: `sesion soltar .`. No bloquea — es un aviso — pero si el
+marcador es ajeno, mirá `git log --oneline -5` y `git status` antes de cualquier
+`reset`/checkout, y commiteá siempre con `git commit --only -- <rutas>` (el índice
+es compartido). Detalle y motivo en `~/Dev/CLAUDE.md`.
+
 ## Desarrollo
 
 ```bash
