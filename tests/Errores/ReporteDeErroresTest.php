@@ -25,7 +25,7 @@ it('acepta el GlitchTip propio: el destino propio se respeta', function (string 
 })->with([
     'dominio propio' => ['https://clave@errores.kraftdo.cl/1'],
     'IP y puerto en la isla' => ['https://clave@127.0.0.1:8400/1'],
-    'servicio de la red de Docker' => ['https://clave@errores.kraftdo.cl/1'],
+    'servicio de la red de Docker' => ['https://clave@errores:8000/1'],
     'un host que CONTIENE el dominio ajeno pero es nuestro' => ['https://clave@sentry.io.kraftdo.cl/1'],
 ]);
 

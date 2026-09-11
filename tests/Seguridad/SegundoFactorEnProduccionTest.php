@@ -7,7 +7,7 @@ use PHPUnit\Framework\AssertionFailedError;
 /**
  * `config/mfa.php` estaba en varios sistemas y —a diferencia de todo lo demás de la
  * §1.5— NO es el mismo archivo: hay cinco variantes distintas. Un sistema sin
- * panel describe un TOTP con `emisor` y sin `show_code`; `control-acceso`
+ * panel describe un TOTP con `emisor` y sin `show_code`; otro sistema
  * agrega el tope de códigos enviados; los demás difieren en la redacción de
  * los comentarios. Encima, la configuración del segundo factor ya tiene dueño:
  * `laravel-kraftdo-acceso` la expone como `acceso.mfa.*` leyendo las MISMAS
