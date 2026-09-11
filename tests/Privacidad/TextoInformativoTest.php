@@ -47,11 +47,11 @@ it('rechaza borrar un texto publicado', function () {
 
 it('los textos de sistemas distintos no se pisan', function () {
     app(Textos::class)->publicar('aviso_recoleccion', 'De discapacidad');
-    config(['privacidad.sistema' => 'licencias']);
-    $otro = app(Textos::class)->publicar('aviso_recoleccion', 'De licencias');
+    config(['privacidad.sistema' => 'ventas']);
+    $otro = app(Textos::class)->publicar('aviso_recoleccion', 'De ventas');
 
     expect($otro->version)->toBe(1)
-        ->and(app(Textos::class)->vigente('aviso_recoleccion')->contenido)->toBe('De licencias');
+        ->and(app(Textos::class)->vigente('aviso_recoleccion')->contenido)->toBe('De ventas');
 });
 
 it('devuelve null cuando el código no existe', function () {

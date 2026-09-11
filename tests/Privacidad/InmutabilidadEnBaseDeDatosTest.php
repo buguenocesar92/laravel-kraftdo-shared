@@ -40,7 +40,7 @@ it('el motor rechaza alterar cada columna probatoria del texto', function (strin
 })->with([
     ['contenido', 'otro texto'],
     ['hash', str_repeat('0', 64)],
-    ['sistema', 'licencias'],
+    ['sistema', 'ventas'],
     ['codigo', 'otro_aviso'],
     ['version', 99],
     ['vigente_desde', '2000-01-01 00:00:00'],
@@ -57,7 +57,7 @@ it('el motor rechaza alterar cada columna probatoria de la bitácora', function 
     ['evento', 'otro.evento'],
     ['datos', '{"campo":"otro"}'],
     ['ocurrido_en', '2000-01-01 00:00:00'],
-    ['sistema', 'licencias'],
+    ['sistema', 'ventas'],
 ]);
 
 it('rechaza también vaciar una columna probatoria a null', function () {

@@ -85,7 +85,7 @@ it('un texto inexistente se rechaza en vez de guardar null en silencio', functio
 });
 
 it('un texto de otro sistema se rechaza: el RAT no es compartido a nivel de fila', function () {
-    config(['privacidad.sistema' => 'licencias']);
+    config(['privacidad.sistema' => 'ventas']);
     $ajeno = app(Textos::class)->publicar('consentimiento_difusion', 'Texto de otro sistema');
     config(['privacidad.sistema' => 'discapacidad']);
 
