@@ -6,7 +6,7 @@ use Laravel\Octane\Octane;
 use PHPUnit\Framework\AssertionFailedError;
 
 /**
- * `config/permission.php` estaba «copiado en 6 sistemas» y era engañoso: es el
+ * `config/permission.php` estaba «copiado en varios sistemas» y era engañoso: es el
  * config que publica `spatie/laravel-permission`, no código del ecosistema.
  * Medido: los sistemas que lo tienen coinciden en TODOS los valores, y solo
  * UNO se aparta del valor por omisión del vendor —`register_octane_reset_listener`,

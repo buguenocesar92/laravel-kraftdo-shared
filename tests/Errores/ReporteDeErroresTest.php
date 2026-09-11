@@ -5,7 +5,8 @@ use Kraftdo\Shared\Errores\ReporteDeErrores;
 
 /**
  * El candado de «los errores no salen del país», portado byte a byte desde
- * `App\Support\ReporteDeErrores` (idéntico en 7 de los 8 sistemas).
+ * `App\Support\ReporteDeErrores` (idéntico en casi todos los sistemas del
+ * ecosistema).
  *
  * Una traza de excepción lleva la ruta, la consulta y a veces el cuerpo del
  * request: eso incluye datos personales de un titular. Mandarla a sentry.io es
@@ -24,7 +25,7 @@ it('acepta el GlitchTip propio: el destino propio se respeta', function (string 
 })->with([
     'dominio propio' => ['https://clave@errores.kraftdo.cl/1'],
     'IP y puerto en la isla' => ['https://clave@127.0.0.1:8400/1'],
-    'servicio de la red de Docker' => ['https://clave@glitchtip-web:8000/1'],
+    'servicio de la red de Docker' => ['https://clave@errores.kraftdo.cl/1'],
     'un host que CONTIENE el dominio ajeno pero es nuestro' => ['https://clave@sentry.io.kraftdo.cl/1'],
 ]);
 

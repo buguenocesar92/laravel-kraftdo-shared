@@ -5,7 +5,7 @@ use Kraftdo\Shared\Testing\AssertSegundoFactorNoSeRegala;
 use PHPUnit\Framework\AssertionFailedError;
 
 /**
- * `config/mfa.php` estaba en 7 sistemas y —a diferencia de todo lo demás de la
+ * `config/mfa.php` estaba en varios sistemas y —a diferencia de todo lo demás de la
  * §1.5— NO es el mismo archivo: hay cinco variantes distintas. Un sistema sin
  * panel describe un TOTP con `emisor` y sin `show_code`; `control-acceso`
  * agrega el tope de códigos enviados; los demás difieren en la redacción de
@@ -14,7 +14,7 @@ use PHPUnit\Framework\AssertionFailedError;
  * variables de entorno. Un segundo `mfa.*` en este paquete sería un segundo
  * interruptor para la misma cerradura.
  *
- * Lo que sí comparten las siete variantes es una ADVERTENCIA escrita en un
+ * Lo que sí comparten esas variantes es una ADVERTENCIA escrita en un
  * comentario —«en PRODUCCIÓN debe quedar en false»— que hoy no hace cumplir
  * nadie. Eso es lo que se extrae: la regla, no el archivo.
  */

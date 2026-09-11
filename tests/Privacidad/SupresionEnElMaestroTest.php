@@ -217,7 +217,7 @@ it('un sistema que declaró supresión solo local deja escrito que nadie habló 
     // `SupresionSoloLocal` es la declaración de entrada, y es legítima: este
     // sistema no es modelo de lectura del maestro. Lo que no puede es contarse
     // como aceptación —no hay maestro que haya aceptado nada— porque entonces
-    // la evidencia de los ocho sistemas dice lo mismo hablen o no hablen.
+    // la evidencia de todos los sistemas del ecosistema dice lo mismo hablen o no hablen.
     app()->bind(PropagaSupresion::class, SupresionSoloLocal::class);
 
     app(AplicarRetencion::class)->ejecutar(simulacion: false);

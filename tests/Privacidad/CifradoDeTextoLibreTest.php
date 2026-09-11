@@ -142,7 +142,7 @@ it('la evidencia de identidad purgada al anonimizar se reescribe cifrada, conser
 // ── Compatibilidad con lo que ya está escrito en producción ──
 
 it('una fila anterior al cifrado se sigue leyendo en claro', function () {
-    // Los ocho sistemas tienen filas escritas antes de esta versión. Entre el
+    // Los sistemas del ecosistema tienen filas escritas antes de esta versión. Entre el
     // despliegue y la corrida del comando que las cifra, el panel tiene que
     // seguir abriendo.
     $id = DB::table('privacidad_solicitudes')->insertGetId([

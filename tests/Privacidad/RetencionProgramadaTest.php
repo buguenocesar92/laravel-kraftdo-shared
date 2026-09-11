@@ -20,7 +20,7 @@ beforeEach(function () {
     app()->bind(PropagaSupresion::class, SupresionSoloLocal::class);
 });
 
-it('no se agenda sola: un paquete no pone a correr un destructivo en ocho sistemas', function () {
+it('no se agenda sola: un paquete no pone a correr un destructivo en todos los sistemas del ecosistema', function () {
     config(['privacidad.retencion.hora' => null]);
 
     $comandos = collect(app(Schedule::class)->events())->map(fn (Event $e): string => (string) $e->command);
