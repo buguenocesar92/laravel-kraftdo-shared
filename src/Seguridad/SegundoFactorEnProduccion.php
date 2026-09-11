@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\App;
 /**
  * En producción, el segundo factor no se apaga ni se regala.
  *
- * Los siete `config/mfa.php` del ecosistema son CINCO archivos distintos —
+ * Los `config/mfa.php` del ecosistema son CINCO archivos distintos —
  * un sistema sin panel describe un TOTP con `emisor` y sin `show_code`,
- * control-acceso agrega el tope de códigos enviados, el resto difiere en la
+ * otro sistema agrega el tope de códigos enviados, el resto difiere en la
  * redacción— y la configuración del segundo factor ya tiene dueño:
  * `laravel-kraftdo-acceso` la expone como `acceso.mfa.*` leyendo las MISMAS
  * variables de entorno (`MFA_ENABLED`, `MFA_SHOW_CODE`). Por eso este paquete
  * NO trae un `config/mfa.php`: sería un segundo interruptor para la misma
  * cerradura, que es peor que la copia que veníamos a eliminar.
  *
- * Lo que sí comparten las siete variantes es una advertencia escrita en un
+ * Lo que sí comparten esas variantes es una advertencia escrita en un
  * comentario —«en PRODUCCIÓN debe quedar en false»— que hoy no hace cumplir
  * nadie. Esta clase la hace cumplir, leyendo la configuración que exista:
  * `mfa.*` en los sistemas que todavía no adoptaron kraftdo-acceso, `acceso.mfa.*`
