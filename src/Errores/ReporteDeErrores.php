@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Log;
  * cosas: lo único que cambia es el host del DSN. Por eso el host es lo que hay
  * que mirar.
  *
- * Una traza lleva la ruta, la consulta y a veces el cuerpo del request; en un
- * sistema del ecosistema eso incluye datos de un vecino. Mandarla a sentry.io es una
+ * Una traza lleva la ruta, la consulta y a veces el cuerpo del request; eso
+ * incluye datos personales de un titular. Mandarla a sentry.io es una
  * transferencia internacional de datos personales, que la Ley 21.719 no permite
  * sin base de licitud. La decisión de autoalojar ya estaba tomada, pero vivía en
  * un documento de diseño: acá está en el código, donde no se puede desobedecer
@@ -38,12 +38,12 @@ final class ReporteDeErrores
      * Dominios de servicios de terceros a los que no se reportan errores.
      *
      * Se compara por SUFIJO DE HOST, no con `str_contains`: `errores.sentry.io`
-     * tiene que caer, y un hipotético `sentry.io.graneros.cl` —que contiene la
+     * tiene que caer, y un hipotético `sentry.io.kraftdo.cl` —que contiene la
      * cadena pero es nuestro— no.
      *
      * **No es configurable a propósito.** Una lista que se puede acortar desde
      * un `.env` no es un candado: es un comentario. Si algún día aparece otro
-     * destino extranjero, se agrega acá, en el paquete, y sube a los ocho
+     * destino extranjero, se agrega acá, en el paquete, y sube a todos los
      * sistemas con un `composer update`.
      *
      * @var list<string>
@@ -73,7 +73,7 @@ final class ReporteDeErrores
                 Log::warning(
                     'El DSN de reporte de errores apunta a un servicio de terceros; no se engancha. '
                     .'Las trazas de este sistema llevan datos personales y no pueden salir del país '
-                    .'(Ley 21.719). Usá el GlitchTip municipal.',
+                    .'(Ley 21.719). Usá el GlitchTip propio del ecosistema.',
                     ['host' => $host]
                 );
 

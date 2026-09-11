@@ -8,24 +8,24 @@ use Kraftdo\Shared\Errores\ReporteDeErrores;
  * `App\Support\ReporteDeErrores` (idéntico en 7 de los 8 sistemas).
  *
  * Una traza de excepción lleva la ruta, la consulta y a veces el cuerpo del
- * request: en un sistema del ecosistema, datos de un vecino. Mandarla a sentry.io es
+ * request: eso incluye datos personales de un titular. Mandarla a sentry.io es
  * una transferencia internacional de datos personales que la Ley 21.719 no
  * permite sin base de licitud. Lo que se prueba acá es que el destino PROPIO se
  * respeta —si se rechazara, nadie vería los errores y alguien apagaría el
  * chequeo— y que el ajeno se rechaza incluso cuando viene disfrazado.
  *
- * Los casos son los mismos que ejercita `Muni\Candados\Candados\ErroresNoSalenDelPais`
+ * Los casos son los mismos que ejercita `Kraftdo\Candados\Candados\ErroresNoSalenDelPais`
  * en cada sistema: si esta clase y ese candado se desalinean, hay que enterarse acá.
  */
-it('acepta el GlitchTip municipal: el destino propio se respeta', function (string $dsn) {
+it('acepta el GlitchTip propio: el destino propio se respeta', function (string $dsn) {
     config()->set('sentry.dsn', $dsn);
 
     expect(ReporteDeErrores::vaADestinoPropio())->toBeTrue();
 })->with([
-    'dominio municipal' => ['https://clave@errores.graneros.cl/1'],
+    'dominio propio' => ['https://clave@errores.kraftdo.cl/1'],
     'IP y puerto en la isla' => ['https://clave@127.0.0.1:8400/1'],
     'servicio de la red de Docker' => ['https://clave@glitchtip-web:8000/1'],
-    'un host que CONTIENE el dominio ajeno pero es nuestro' => ['https://clave@sentry.io.graneros.cl/1'],
+    'un host que CONTIENE el dominio ajeno pero es nuestro' => ['https://clave@sentry.io.kraftdo.cl/1'],
 ]);
 
 it('rechaza la nube de Sentry, que está fuera de Chile', function (string $dsn) {
