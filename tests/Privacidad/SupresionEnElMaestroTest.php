@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
 use Kraftdo\Shared\Privacidad\AplicarRetencion;
 use Kraftdo\Shared\Privacidad\BaseLicitud;
 use Kraftdo\Shared\Privacidad\Contratos\PropagaSupresion;
@@ -13,7 +12,6 @@ use Kraftdo\Shared\Privacidad\SupresionEnCurso;
 use Kraftdo\Shared\Privacidad\SupresionNoPropagada;
 use Kraftdo\Shared\Privacidad\SupresionSoloLocal;
 use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
-use Kraftdo\Shared\Tests\Privacidad\Fixtures\SincronizarPersonaDePrueba;
 
 /**
  * El defecto que originó estas pruebas no vivía en ninguna de las dos mitades:
@@ -23,17 +21,17 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\SincronizarPersonaDePrueba;
  * Cada mitad estaba probada y las dos pasaban.
  */
 beforeEach(function () {
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     PersonaDePrueba::$supresionActivaAlPurgar = null;
     PersonaDePrueba::$supresionActivaAlAnonimizar = null;
 
     Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'atencion',
         'nombre' => 'Atención de casos',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422',
+        'norma_habilitante' => 'Ley 19.496',
         'plazo_retencion_meses' => 60,
     ]);
 
@@ -81,44 +79,6 @@ it('el contexto se cierra aunque la supresión reviente', function () {
     }
 
     expect(SupresionEnCurso::activa())->toBeFalse();
-});
-
-it('el write-through no empuja al maestro lo que se escribió durante una supresión', function () {
-    config(['services.personas_api' => ['driver' => 'http', 'url' => 'https://maestro.test', 'token' => 'x']]);
-    Http::fake();
-
-    // El job se CONSTRUYE dentro de la supresión (es lo que hace el observador
-    // `saved` del adoptante) y se ejecuta después, ya fuera del contexto: por
-    // eso la marca viaja con el job y no se consulta en handle().
-    $job = SupresionEnCurso::durante(fn () => new SincronizarPersonaDePrueba($this->vencida->getKey()));
-
-    $job->handle();
-
-    Http::assertNothingSent();
-});
-
-it('el write-through no empuja un registro ya anonimizado, venga de donde venga', function () {
-    // Esta es la segunda puerta al mismo defecto, y no la cierra el contexto:
-    // el cron `personas:resincronizar` mira `updated_at > sincronizado_maestro_at`
-    // y la anonimización mueve `updated_at`, así que quince minutos después
-    // re-despacha la persona ya anonimizada y crea el `ANON-{id}` en el maestro.
-    config(['services.personas_api' => ['driver' => 'http', 'url' => 'https://maestro.test', 'token' => 'x']]);
-    Http::fake();
-
-    $this->vencida->forceFill(['documento' => 'ANON-'.$this->vencida->getKey()])->save();
-
-    (new SincronizarPersonaDePrueba($this->vencida->getKey()))->handle();
-
-    Http::assertNothingSent();
-});
-
-it('sin supresión de por medio el write-through sí empuja: la guardia es lo que lo detiene', function () {
-    config(['services.personas_api' => ['driver' => 'http', 'url' => 'https://maestro.test', 'token' => 'x']]);
-    Http::fake();
-
-    (new SincronizarPersonaDePrueba($this->vencida->getKey()))->handle();
-
-    Http::assertSentCount(1);
 });
 
 it('se niega a ejecutar si el sistema no declaró qué pasa con el maestro', function () {

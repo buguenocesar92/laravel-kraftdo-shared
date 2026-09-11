@@ -171,7 +171,7 @@ class AplicarRetencionCommand extends Command
         }
 
         $this->warn(
-            'Este sistema no declaró qué debe pasar en el registro maestro al suprimir a un titular, '
+            'Este sistema no declaró qué debe pasar en el maestro de personas al suprimir a un titular, '
             .'así que la retención se negará a ejecutar. Enlazar Contratos\PropagaSupresion con la '
             .'implementación que propaga la supresión al maestro, o con SupresionSoloLocal si este '
             .'sistema no es modelo de lectura del maestro.',

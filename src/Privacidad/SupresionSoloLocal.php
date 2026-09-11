@@ -29,7 +29,7 @@ class SupresionSoloLocal implements PropagaSupresion
     public function propagar(TitularDeDatos $titular, string $documento): ResultadoDePropagacion
     {
         return ResultadoDePropagacion::noCorrespondia(
-            'Este sistema declaró que no es modelo de lectura del registro maestro '
+            'Este sistema declaró que no es modelo de lectura del maestro de personas '
             .'(SupresionSoloLocal): la supresión local es la definitiva.',
         );
     }
