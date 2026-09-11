@@ -35,7 +35,7 @@ plugin en el panel:
 
 - **`UserResource` no está aquí** a propósito: depende del modelo `User` de cada
   app, que sí difiere entre proyectos.
-- Existe un paquete equivalente para el ecosistema municipal
-  (`muni-graneros/laravel-muni-shared`). Son **deliberadamente separados**: son
-  productos distintos con ciclos de vida distintos.
+- Existe un paquete equivalente en otro ecosistema de productos (mismo patrón,
+  distinto namespace). Son **deliberadamente separados**: son productos
+  distintos con ciclos de vida distintos.
 - Proyectos nuevos: `./scaffold new "Nombre" --shared=kraftdo` los cablea solo.
