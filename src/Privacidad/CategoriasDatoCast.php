@@ -45,7 +45,7 @@ class CategoriasDatoCast implements CastsAttributes
             fn (CategoriaDato|string $categoria): CategoriaDato => $categoria instanceof CategoriaDato
                 ? $categoria
                 : $this->resolver($categoria),
-            $value,
+            is_array($value) ? $value : iterator_to_array($value),
         );
 
         return json_encode(

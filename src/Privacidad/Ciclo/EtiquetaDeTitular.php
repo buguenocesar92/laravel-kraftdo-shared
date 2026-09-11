@@ -2,7 +2,6 @@
 
 namespace Kraftdo\Shared\Privacidad\Ciclo;
 
-use Illuminate\Database\Eloquent\Model;
 use Kraftdo\Shared\Privacidad\Contratos\TitularDeDatos;
 use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
 
@@ -43,7 +42,9 @@ final class EtiquetaDeTitular
             return $titular->titularNombre().' ('.$titular->titularDocumento().')';
         }
 
-        return class_basename($titular).' #'.($titular instanceof Model ? $titular->getKey() : '');
+        // El morph siempre resuelve a un Model (lo declara `Solicitud::titular()`):
+        // no hay una tercera clase de valor que llegue hasta acá.
+        return class_basename($titular).' #'.$titular->getKey();
     }
 
     public static function de(?TitularDeDatos $titular): ?string

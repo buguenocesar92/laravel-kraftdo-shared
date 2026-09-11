@@ -170,7 +170,7 @@ final class InmutabilidadEnBaseDeDatos
     public static function proteger(Connection $conexion): void
     {
         if (! self::soporta($driver = $conexion->getDriverName())) {
-            logger()?->warning(
+            logger()->warning(
                 "El módulo de privacidad no instaló el guardia de inmutabilidad: el driver «{$driver}» no tiene SQL propio. "
                 .'Las tablas de evidencia quedan protegidas solo por los eventos del modelo, que las escrituras '
                 .'masivas del query builder no disparan.',

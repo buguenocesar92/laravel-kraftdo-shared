@@ -6,6 +6,14 @@ parameters:
     paths:
         - src
 
+    # Sin esto, cualquier tipo que PHPStan solo conoce por PHPDoc (un
+    # `@property` de modelo, una interfaz de composición como TitularDeDatos)
+    # hace que un `instanceof` legítimo se reporte como «siempre verdadero».
+    # El propio mensaje de PHPStan sugiere este ajuste: es el recomendado para
+    # código con PHPDoc de propiedades de Eloquent, no una forma de tapar un
+    # hallazgo real.
+    treatPhpDocTypesAsCertain: false
+
     # NO es un baseline: un baseline vuelca automáticamente TODO lo que
     # encuentre, sin que nadie explique por qué. Esto es una lista corta,
     # escrita a mano, de la causa raíz de cada hallazgo que queda fuera de una
@@ -26,3 +34,50 @@ parameters:
                 - src/Testing/AssertEnvExampleCompleto.php
                 - src/Testing/AssertPermisosNoSeQuedanPegados.php
                 - src/Testing/AssertSegundoFactorNoSeRegala.php
+
+        # Las relaciones de Eloquent (MorphTo, BelongsTo, BelongsToMany) no son
+        # covariantes en su segundo parámetro genérico: PHPStan compara el tipo
+        # exacto que declara el @return (la clase concreta del modelo) contra
+        # `$this`, y los dos NUNCA calzan aunque el código sea correcto. Es una
+        # limitación documentada de PHPStan con las plantillas de Larastan, no
+        # un error de estos modelos: ver el enlace que el propio PHPStan cita
+        # en cada uno de estos hallazgos
+        # (https://phpstan.org/blog/whats-up-with-template-covariant-generics).
+        -
+            identifier: return.type
+            paths:
+                - src/Privacidad/Modelos/*.php
+        -
+            identifier: generics.notSubtype
+            paths:
+                - src/Privacidad/Modelos/*.php
+
+        # PropagaRectificacion::propagar() recibe el contrato TitularDeDatos, no
+        # el Model concreto de cada adoptante: el módulo trabaja a propósito
+        # sobre la interfaz, nunca sobre el modelo real de cada sistema.
+        -
+            identifier: argument.type
+            paths:
+                - src/Privacidad/Rectificaciones.php
+
+        # Defensivo a propósito: el catch existe para blindar contra un
+        # bloqueo/deadlock de MariaDB bajo la publicación concurrente que
+        # `PublicacionConcurrenteEnMariaDbTest` ejercita contra el motor real;
+        # PHPStan analiza solo la firma de `DB::transaction()`, que no declara
+        # esas excepciones, y por eso no puede ver que sí se propagan.
+        -
+            identifier: catch.neverThrown
+            paths:
+                - src/Privacidad/Textos.php
+
+        # `unprepared()` exige `literal-string` por seguridad (evitar SQL
+        # armado con datos externos), y este trigger SQL sí se arma con
+        # variables — pero todas provienen de constantes de esta misma clase
+        # (nombres de tabla y de columna fijos en `COLUMNAS*`/`MENSAJES`),
+        # nunca de un request ni de un adoptante. PHPStan no puede propagar
+        # `literal-string` a través de los closures y el `implode()` que arman
+        # la condición, así que no ve que el origen es literal.
+        -
+            identifier: argument.type
+            paths:
+                - src/Privacidad/InmutabilidadEnBaseDeDatos.php

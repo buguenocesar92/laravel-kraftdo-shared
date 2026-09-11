@@ -27,10 +27,10 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
  *
  * ## Hasta dónde alcanza un bloqueo: al sistema, no al ecosistema
  *
- * `privacidad_bloqueos` es UNA tabla compartida por los ocho sistemas
- * municipales. `bloquear()` siempre escribió en qué sistema se puso el bloqueo;
- * `vigente()` no lo consultaba, así que una oposición acogida en licencias
- * cesaba el tratamiento en discapacidad y al revés. No era una decisión: era
+ * `privacidad_bloqueos` es UNA tabla compartida por los sistemas del
+ * ecosistema. `bloquear()` siempre escribió en qué sistema se puso el bloqueo;
+ * `vigente()` no lo consultaba, así que una oposición acogida en un sistema
+ * cesaba el tratamiento en otro y al revés. No era una decisión: era
  * una columna escrita y no leída.
  *
  * Peor, era INCOHERENTE consigo misma. Un bloqueo acotado a una finalidad ya
@@ -48,14 +48,14 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
  * 1. **Un cese que nadie pidió deja a alguien sin atención.** Cesar de más y
  *    cesar de menos NO son simétricos: cesar de menos incumple un derecho ya
  *    ejercido y el titular puede reclamarlo —queda registro de que lo ejerció—;
- *    cesar de más le corta a un vecino una prestación municipal que la ley
+ *    cesar de más le corta a un titular una prestación que la ley
  *    obliga a dar, sobre finalidades que él nunca discutió, y sin que nadie
  *    sepa por qué. Lo segundo se descubre en el mesón y no deja rastro de
  *    haberse decidido.
  * 2. **Lo que el titular ejerció es acotado, y el módulo no puede ampliarlo por
  *    adivinanza.** Una oposición se presenta contra tratamientos concretos, y
  *    esos tratamientos son las finalidades del RAT del sistema que la recibió.
- *    Qué finalidad de licencias corresponde a cuál de discapacidad no lo sabe
+ *    Qué finalidad de un sistema corresponde a cuál de otro no lo sabe
  *    este paquete, y no hay dato en la tabla del que deducirlo.
  * 3. **Es lo que ya hace el resto del módulo.** Finalidades, textos,
  *    solicitudes y el RAT están todos delimitados por `privacidad.sistema`. Un
@@ -63,10 +63,10 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
  *    frontera, y la rompería sin ningún registro de haberlo decidido.
  *
  * **Lo que esta decisión NO resuelve, dicho antes de que alguien lo lea como
- * cerrado:** que una persona ejerza su derecho ante EL MUNICIPIO —que es el
+ * cerrado:** que una persona ejerza su derecho ante LA ORGANIZACIÓN —que es el
  * responsable del tratamiento, no cada sistema por separado— y la organización lo
  * respete en una sola ventanilla. Ese es un problema de PROCEDIMIENTO y de
- * decisión municipal, no algo que este código pueda zanjar: hoy la vía correcta
+ * decisión de la organización, no algo que este código pueda zanjar: hoy la vía correcta
  * es registrar la solicitud en cada sistema donde el titular quiera que opere.
  * Lo que el módulo aporta es que deje de ser invisible:
  * `sistemasConBloqueoVigente()` muestra en qué otros sistemas hay una
@@ -77,7 +77,7 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
  * `bloquear()` siempre escribió `sistema`, así que toda fila existente ya dice a
  * qué sistema pertenece. Lo que SÍ cambia es su significado efectivo: un bloqueo
  * sin finalidad que hasta hoy frenaba —a quien consultara— en los ocho sistemas,
- * desde ahora frena solo en el suyo. Si algún municipio venía apoyándose en ese
+ * desde ahora frena solo en el suyo. Si alguna organización venía apoyándose en ese
  * derrame para dar por cesado un tratamiento en otro sistema, ese cese hay que
  * volver a decidirlo y registrarlo donde corresponde.
  */
@@ -133,9 +133,9 @@ class Bloqueos
      *    que un funcionario lee para entender el caso; el porqué del
      *    levantamiento es otro hecho y va en su propia columna.
      * 3. **Un sistema no levanta el bloqueo de otro.** Es la contraparte de la
-     *    decisión de alcance del docblock de la clase: si el bloqueo de licencias
-     *    no cesa el tratamiento en discapacidad, discapacidad tampoco puede
-     *    reanudar lo que licencias detuvo.
+     *    decisión de alcance del docblock de la clase: si el bloqueo de un sistema
+     *    no cesa el tratamiento en otro, ese otro tampoco puede
+     *    reanudar lo que el primero detuvo.
      *
      * Lo que NO hace, para no venderlo de más: no comprueba que la solicitud que
      * originó el bloqueo esté resuelta. Levantar el bloqueo preventivo de un
@@ -260,8 +260,8 @@ class Bloqueos
      *    tratando el dato igual que antes—, que es la misma clase de defecto que
      *    este método viene a cerrar.
      *
-     * El bloqueo nuevo va SIN finalidad (alcanza a todas): una oposición que el
-     * municipio acogió sin acotarla no se puede acotar acá por adivinanza.
+     * El bloqueo nuevo va SIN finalidad (alcanza a todas): una oposición que la
+     * organización acogió sin acotarla no se puede acotar acá por adivinanza.
      *
      * Lo que este método NO consigue, y vale para todos los bloqueos: que el
      * sistema adoptante deje de tratar el dato. Escribe la fila; quien tiene que
@@ -337,7 +337,7 @@ class Bloqueos
      * de propagar la corrección al registro maestro se frena a sí mismo el
      * cumplimiento del derecho que está tramitando: el bloqueo que existe para
      * proteger al titular mientras su dato está en disputa termina impidiendo
-     * que el dato se arregle. `discapacidad-graneros` lo descubrió construyendo
+     * que el dato se arregle. Un sistema adoptante lo descubrió construyendo
      * su primer candado real y lo resolvió con una excepción a mano en su lado;
      * el módulo no lo advertía en ninguna parte, así que el próximo adoptante lo
      * iba a descubrir en producción o —peor— no lo iba a descubrir.
@@ -385,7 +385,7 @@ class Bloqueos
      * titular, ESTE INCLUIDO.
      *
      * Es la contraparte de haber angostado `vigente()` a un solo sistema: sin
-     * esto, «el vecino ya se opuso en otra ventanilla» sería un hecho escrito en
+     * esto, «el titular ya se opuso en otra ventanilla» sería un hecho escrito en
      * la base que ningún sistema puede ver, y el riesgo de cesar de menos —o
      * sea, de incumplir un derecho ya ejercido— quedaría silencioso. Con esto,
      * un panel puede mostrarle al funcionario que el titular ejerció el derecho

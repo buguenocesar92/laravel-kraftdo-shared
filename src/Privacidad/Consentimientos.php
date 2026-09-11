@@ -284,9 +284,11 @@ class Consentimientos
             return null;
         }
 
-        $texto = $valor instanceof TextoInformativo
-            ? $valor
-            : TextoInformativo::query()->find($valor);
+        $texto = match (true) {
+            $valor instanceof TextoInformativo => $valor,
+            is_int($valor) || is_string($valor) => TextoInformativo::query()->find($valor),
+            default => null,
+        };
 
         if ($texto === null) {
             throw new TextoNoPublicado(

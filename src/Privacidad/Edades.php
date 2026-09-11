@@ -63,8 +63,16 @@ class Edades
 
         // El «!» pone en cero la hora: lo que se compara es el día, no el
         // instante en que el registro civil anotó el nacimiento.
-        $cumpleMayoria = Carbon::createFromFormat('!Y-m-d', $nacimiento->format('Y-m-d'), $zona)
-            ->addYears(self::MAYORIA_DE_EDAD);
+        $inicioDelDia = Carbon::createFromFormat('!Y-m-d', $nacimiento->format('Y-m-d'), $zona);
+
+        if ($inicioDelDia === null) {
+            // El formato lo arma esta misma línea a partir de una fecha ya
+            // válida (el cast `date` del contrato la garantiza): no debería
+            // fallar nunca, pero createFromFormat() puede devolver null.
+            return null;
+        }
+
+        $cumpleMayoria = $inicioDelDia->addYears(self::MAYORIA_DE_EDAD);
 
         return Carbon::now($zona)->startOfDay()->lt($cumpleMayoria);
     }
