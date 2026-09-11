@@ -16,7 +16,7 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
  * `registro_comunal` (120 meses) todavía tenía que conservar.
  */
 beforeEach(function () {
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     // Sin esto la retención se niega a ejecutar (ver SupresionEnElMaestroTest):
     // acá se declara explícitamente que el sistema de prueba no es modelo de
@@ -24,16 +24,16 @@ beforeEach(function () {
     app()->bind(PropagaSupresion::class, SupresionSoloLocal::class);
 
     $this->corta = Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'agenda_citas',
         'nombre' => 'Agendamiento de citas',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'LOC de Municipalidades',
+        'norma_habilitante' => 'Ley 19.496',
         'plazo_retencion_meses' => 24,
     ]);
 
     $this->larga = Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'registro_comunal',
         'nombre' => 'Registro comunal',
         'base_licitud' => BaseLicitud::FuncionLegal,

@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * `Bitacora::desvincular()` —ver el docblock de la migración que crea esta
  * tabla para el porqué exacto, incluido el de `contrato_path`—: es un
  * catálogo de organizaciones, y sus filas no se anonimizan cuando se
- * anonimiza a un vecino.
+ * anonimiza a un titular.
  *
  * @property string $sistema
  * @property string $nombre
@@ -49,7 +49,7 @@ class Encargado extends Model
      * Sin contrato firmado, o con uno que ya venció.
      *
      * Un `contrato_vence_en` nulo se toma como vigencia indefinida, no como
-     * vencido: hay convenios municipales sin plazo de término, y marcarlos en
+     * vencido: hay convenios sin plazo de término, y marcarlos en
      * rojo en el RAT sería ruido que nadie puede resolver.
      *
      * Solo mira encargados activos: uno dado de baja ya no trata datos de

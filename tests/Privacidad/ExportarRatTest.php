@@ -6,24 +6,24 @@ use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
 
 beforeEach(function () {
     // Sin TTY (este entorno de test, CI) Symfony cae a 80 columnas y envuelve
-    // las celdas de la tabla, partiendo textos como "Ley 20.422" en dos
+    // las celdas de la tabla, partiendo textos como "Ley 19.496" en dos
     // líneas. Es una circunstancia del arnés de test, no del comando: se fija
     // acá y no en el comando, para no forzar un ancho de tabla arbitrario
-    // sobre la sesión real de un funcionario municipal.
+    // sobre la sesión real de un operador.
     $this->anchoOriginal = getenv('COLUMNS');
     putenv('COLUMNS=200');
 
     config([
-        'privacidad.sistema' => 'discapacidad',
+        'privacidad.sistema' => 'nfc',
         'privacidad.responsable.nombre' => 'la organización',
     ]);
 
     Finalidad::create([
-        'sistema' => 'discapacidad',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal de personas con discapacidad',
+        'sistema' => 'nfc',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de clientes con tarjeta NFC',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422',
+        'norma_habilitante' => 'Ley 19.496',
         'plazo_retencion_meses' => 120,
     ]);
 });
@@ -36,7 +36,7 @@ it('imprime el RAT del sistema con su base de licitud y norma', function () {
     // Se usa Artisan::call()+output() y no la cadena
     // $this->artisan(...)->expectsOutputToContain(...): el mock de salida de
     // testing empareja cada línea escrita con UNA sola expectativa, y como
-    // «registro_comunal» y «Ley 20.422» caen en la misma fila de la tabla,
+    // «registro_clientes» y «Ley 19.496» caen en la misma fila de la tabla,
     // la segunda expectativa nunca se marca como cumplida y el test falla
     // pese a que la tabla sí muestra ambos datos.
     $codigo = Artisan::call('privacidad:rat');
@@ -46,8 +46,8 @@ it('imprime el RAT del sistema con su base de licitud y norma', function () {
     $salida = Artisan::output();
 
     expect($salida)
-        ->toContain('registro_comunal')
-        ->toContain('Ley 20.422');
+        ->toContain('registro_clientes')
+        ->toContain('Ley 19.496');
 });
 
 it('exporta el RAT en json con el responsable del tratamiento', function () {
@@ -59,7 +59,7 @@ it('exporta el RAT en json con el responsable del tratamiento', function () {
     $rat = json_decode($salida, true, flags: JSON_THROW_ON_ERROR);
 
     expect($rat['responsable']['nombre'])->toBe('la organización')
-        ->and($rat['finalidades'][0]['codigo'])->toBe('registro_comunal')
+        ->and($rat['finalidades'][0]['codigo'])->toBe('registro_clientes')
         ->and($rat['finalidades'][0]['base_licitud'])->toBe('funcion_legal');
 });
 
@@ -86,7 +86,7 @@ it('exporta json válido con finalidades vacío cuando el sistema no declaró na
     $salida = Artisan::output();
     $rat = json_decode($salida, true, flags: JSON_THROW_ON_ERROR);
 
-    expect($rat['sistema'])->toBe('discapacidad')
+    expect($rat['sistema'])->toBe('nfc')
         ->and($rat['responsable']['nombre'])->toBe('la organización')
         ->and($rat['finalidades'])->toBe([]);
 });
@@ -145,8 +145,8 @@ it('en json, con el sistema configurado pero sin finalidades declaradas, adviert
 
     $rat = json_decode(Artisan::output(), true, flags: JSON_THROW_ON_ERROR);
 
-    expect($rat['sistema'])->toBe('discapacidad')
-        ->and($rat['advertencias'])->toContain('El sistema «discapacidad» no declaró ninguna finalidad de tratamiento.');
+    expect($rat['sistema'])->toBe('nfc')
+        ->and($rat['advertencias'])->toContain('El sistema «nfc» no declaró ninguna finalidad de tratamiento.');
 });
 
 it('en json, no exporta destinatarios: la fuente de a quién se comunican los datos es encargados', function () {
@@ -186,7 +186,7 @@ it('en json, advierte cuando el responsable del tratamiento está incompleto', f
 
 it('en json, no advierte sobre el responsable cuando nombre, contacto y delegado están completos', function () {
     config([
-        'privacidad.responsable.contacto' => 'privacidad@graneros.cl',
+        'privacidad.responsable.contacto' => 'privacidad@ejemplo.test',
         'privacidad.responsable.delegado' => 'Delegado de Protección de Datos',
     ]);
 
@@ -211,11 +211,11 @@ it('exporta finalidades activas e inactivas por igual, distinguiendo el estado',
     // de tergiversar lo que el sistema hizo. Se muestra el estado, no se
     // recorta la lista.
     Finalidad::create([
-        'sistema' => 'discapacidad',
-        'codigo' => 'campana_censo_2019',
-        'nombre' => 'Campaña de censo comunal 2019',
+        'sistema' => 'nfc',
+        'codigo' => 'campana_fidelizacion_2019',
+        'nombre' => 'Campaña de fidelización 2019',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422',
+        'norma_habilitante' => 'Ley 19.496',
         'activa' => false,
     ]);
 
@@ -227,6 +227,6 @@ it('exporta finalidades activas e inactivas por igual, distinguiendo el estado',
     $finalidades = collect($rat['finalidades'])->keyBy('codigo');
 
     expect($finalidades)->toHaveCount(2)
-        ->and($finalidades['registro_comunal']['activa'])->toBeTrue()
-        ->and($finalidades['campana_censo_2019']['activa'])->toBeFalse();
+        ->and($finalidades['registro_clientes']['activa'])->toBeTrue()
+        ->and($finalidades['campana_fidelizacion_2019']['activa'])->toBeFalse();
 });

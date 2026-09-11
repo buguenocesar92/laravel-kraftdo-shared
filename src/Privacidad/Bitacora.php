@@ -354,11 +354,11 @@ class Bitacora
                 // del sistema adoptante. Quedan abiertas dos rutas que ni
                 // siquiera miran el ref; un review independiente reconstruyó
                 // persona → conjunto huérfano 12 de 12 con cada una, sobre 40
-                // vecinos con 12 anonimizados en la misma corrida:
+                // titulares con 12 anonimizados en la misma corrida:
                 //
                 //   1. Fechas de negocio. `personas.created_at` sobrevive —es de
                 //      la tabla del adoptante, este barrido no la toca y
-                //      anonimizar() tampoco la anula— y se empareja por vecino
+                //      anonimizar() tampoco la anula— y se empareja por titular
                 //      más cercano con la fecha de negocio más antigua de cada
                 //      grupo huérfano (`entregado_en`, `otorgado_en`,
                 //      `ocurrido_en`), que sobreviven porque SON el hecho

@@ -130,7 +130,7 @@ class DiagnosticoCommand extends Command
         $faltaSoloDelegado = ! $faltaContacto && $faltantes->has('delegado');
 
         $consecuencia = match (true) {
-            $faltaContacto => 'El expediente que se le entrega al titular sale con el contacto en blanco: el vecino recibe un documento que no le dice a quién dirigirse para ejercer sus derechos.',
+            $faltaContacto => 'El expediente que se le entrega al titular sale con el contacto en blanco: recibe un documento que no le dice a quién dirigirse para ejercer sus derechos.',
             $faltaSoloDelegado => 'El expediente sale sin identificar al delegado de protección de datos. La ley pide saber a QUIÉN responde el tratamiento, y designarlo es un acto dla organización: no se resuelve poniendo el mismo correo de contacto, porque es una persona y no un buzón.',
             default => 'El RAT no identifica al responsable del tratamiento, que es lo primero que se pregunta ante un reclamo.',
         };

@@ -8,7 +8,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
 /**
  * Qué deja de hacer ESTE sistema cuando un bloqueo queda vigente.
  *
- * La frase es la que el funcionario le repite al vecino, así que la escribe el
+ * La frase es la que el funcionario le repite al titular, así que la escribe el
  * adoptante y no el paquete: el mapeo tratamiento→finalidad —qué pantalla, qué
  * CSV, qué correo y qué job dejan de tocar a esa persona— es propio de cada
  * sistema, y el módulo no lo conoce ni lo puede ejecutar.
@@ -16,7 +16,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
  * Que el default diga «no lo declaró» en vez de una frase tranquilizadora es
  * deliberado: recibir y resolver solicitudes es la SUPERFICIE del cumplimiento,
  * no el cumplimiento. Un sistema que herede el panel y no escriba su candado le
- * certificaría por escrito a un vecino un cese que no ocurre.
+ * certificaría por escrito a un titular un cese que no ocurre.
  */
 final readonly class AlcanceDelCese
 {
@@ -40,7 +40,7 @@ final readonly class AlcanceDelCese
      * Qué pasó con el bloqueo, que no es lo mismo según cómo se resolvió.
      *
      * Una oposición ACOGIDA no levanta el bloqueo: lo vuelve definitivo. Decir
-     * lo contrario dejaría entender que el vecino quedó como antes, justo cuando
+     * lo contrario dejaría entender que el titular quedó como antes, justo cuando
      * se le dio la razón.
      */
     public function efectoSobreElBloqueo(TipoDeSolicitud $tipo, EstadoDeSolicitud $resultado): string

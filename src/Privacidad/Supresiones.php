@@ -25,8 +25,8 @@ use Throwable;
  *
  * ## Por qué acoger una supresión NO puede ser incondicional
  *
- * La supresión por retención es unilateral: venció el plazo que el propio
- * municipio declaró, y no hay nada que discutir. La supresión a petición no lo
+ * La supresión por retención es unilateral: venció el plazo que la propia
+ * organización declaró, y no hay nada que discutir. La supresión a petición no lo
  * es. Cuando la organización trata el dato por **función legal con norma
  * habilitante** —no por consentimiento— el derecho de supresión no procede
  * sobre esa finalidad mientras el plazo de conservación siga corriendo:
@@ -71,7 +71,7 @@ use Throwable;
  *   —quien sabe si hay a quién hablarle es él—. Lo que el servicio garantiza es
  *   que la diferencia no se pierda: viaja en `ResultadoDeSupresion::$propagacion`
  *   y queda escrita en la evidencia `supresion.aplicada`. Un panel que le vaya a
- *   decir a un vecino «sus datos ya no están en el ecosistema» tiene que mirarla
+ *   decir a un titular «sus datos ya no están en el ecosistema» tiene que mirarla
  *   antes.
  */
 class Supresiones

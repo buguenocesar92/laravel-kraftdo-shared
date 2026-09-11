@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * `privacidad_encargados` NO lleva `titular_id` ni `titular_type`, a
  * propósito y no por omisión: es un catálogo de ORGANIZACIONES —el maestro de
- * personas federado, una empresa de mensajería, otro municipio con
+ * personas federado, una empresa de mensajería, otra organización con
  * convenio—, no de titulares de datos. `Bitacora::desvincular()` barre por
  * morph al titular; una tabla sin esa columna queda fuera de su alcance sin
  * que haya que decírselo, y las guardias de deriva de
@@ -29,11 +29,11 @@ use Illuminate\Support\Facades\Schema;
  * `Bitacora::ARCHIVOS`: ese mecanismo borra documentos que son datos
  * personales de un titular cuando ese titular se anonimiza, y un contrato con
  * un encargado no es ninguna de las dos cosas. Es un documento SOBRE LA
- * MUNICIPALIDAD Y EL TERCERO, no sobre ningún vecino, y no tiene titular con
+ * ORGANIZACIÓN Y EL TERCERO, no sobre ningún titular, y no tiene titular con
  * el que asociarse para que un desvincular() lo alcance. Peor aún: si
  * pudiera, sería un defecto y no una prestación —el contrato es la prueba de
  * que hubo debida diligencia sobre ese tercero, y borrarlo como efecto
- * colateral de anonimizar a un vecino cualquiera destruiría esa prueba sin
+ * colateral de anonimizar a un titular cualquiera destruiría esa prueba sin
  * que nadie lo haya decidido. Su ciclo de vida (qué pasa con el archivo
  * cuando el contrato se reemplaza o el encargado se da de baja) es una
  * decisión de gestión documental propia, no de este módulo, y queda fuera de

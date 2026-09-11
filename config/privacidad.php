@@ -97,10 +97,10 @@ return [
         //
         // Sin default a propósito, y esta vez el default ausente no es sobre
         // configuración sino sobre destrucción: un paquete que se instala y
-        // empieza a anonimizar por cron en ocho sistemas —porque alguien corrió
-        // `composer update`— es inaceptable, por más que la obligación legal de
-        // suprimir sí exista. La decisión de cuándo se destruye es del
-        // municipio.
+        // empieza a anonimizar por cron en todos los sistemas del ecosistema
+        // —porque alguien corrió `composer update`— es inaceptable, por más que
+        // la obligación legal de suprimir sí exista. La decisión de cuándo se
+        // destruye es de la organización.
         //
         // Y el otro lado del mismo problema, que es el que se midió: en el
         // sistema real el módulo estaba instalado, migrado, sembrado y con los
@@ -124,7 +124,7 @@ return [
     ],
 
     // Datos del responsable del tratamiento, que van en el RAT y en las
-    // respuestas al titular. Por municipio, nunca hardcodeados.
+    // respuestas al titular. Por organización, nunca hardcodeados.
     'responsable' => [
         'nombre' => env('PRIVACIDAD_RESPONSABLE', ''),
         'contacto' => env('PRIVACIDAD_CONTACTO', ''),

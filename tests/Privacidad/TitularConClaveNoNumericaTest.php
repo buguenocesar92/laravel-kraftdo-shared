@@ -10,14 +10,14 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
 use Kraftdo\Shared\Tests\Privacidad\Fixtures\TitularConRutDePrueba;
 
 beforeEach(function () {
-    config(['privacidad.sistema' => 'atencionvecino', 'privacidad.plazo_respuesta_dias' => 30]);
+    config(['privacidad.sistema' => 'nfc', 'privacidad.plazo_respuesta_dias' => 30]);
 
     Finalidad::create([
-        'sistema' => 'atencionvecino', 'codigo' => 'requerimientos', 'nombre' => 'Requerimientos',
-        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 18.695',
+        'sistema' => 'nfc', 'codigo' => 'requerimientos', 'nombre' => 'Requerimientos',
+        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 19.496',
     ]);
 
-    $this->vecino = TitularConRutDePrueba::create([
+    $this->titular = TitularConRutDePrueba::create([
         'rut' => '11111111-1',
         'nombre' => 'Rocío Paredes',
         'fecha_nacimiento' => now()->subYears(40)->toDateString(),
@@ -26,7 +26,7 @@ beforeEach(function () {
 
 it('un titular identificado por RUT queda apuntado tal cual, sin truncarse', function () {
     $solicitud = app(Solicitudes::class)->registrar(
-        $this->vecino,
+        $this->titular,
         TipoDeSolicitud::Acceso,
         'Pide copia de sus requerimientos.',
         new ResultadoVerificacion(true, 'cedula_presencial'),
@@ -39,7 +39,7 @@ it('un titular identificado por RUT queda apuntado tal cual, sin truncarse', fun
 
 it('la solicitud vuelve a encontrar a su titular', function () {
     $solicitud = app(Solicitudes::class)->registrar(
-        $this->vecino,
+        $this->titular,
         TipoDeSolicitud::Acceso,
         'Pide copia de sus requerimientos.',
         new ResultadoVerificacion(true, 'cedula_presencial'),
@@ -53,7 +53,7 @@ it('la solicitud vuelve a encontrar a su titular', function () {
 
 it('la bitácora de la recepción también apunta al RUT', function () {
     app(Solicitudes::class)->registrar(
-        $this->vecino,
+        $this->titular,
         TipoDeSolicitud::Acceso,
         'Pide copia de sus requerimientos.',
         new ResultadoVerificacion(true, 'cedula_presencial'),

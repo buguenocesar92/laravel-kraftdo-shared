@@ -10,11 +10,11 @@ namespace Kraftdo\Shared\Privacidad;
  * `PropagaSupresion::propagar()`, y el motivo es un defecto medido, no una
  * preferencia de estilo: con dos respuestas —aceptó / rechazó— un sistema que
  * en tiempo de ejecución decide NO hablarle al maestro no tiene forma de
- * decirlo sin mentir. En la adopción de `discapacidad-graneros`,
+ * decirlo sin mentir. En la adopción de un sistema real,
  * `PropagaSupresionAlMaestro` devolvía `true` sin contactar a nadie cuando el
  * driver de la API no era `http`, así que el módulo destruía el dato local
  * creyendo que el maestro había aceptado la supresión, mientras la identidad
- * seguía viva y consultable por RUT para los otros siete sistemas.
+ * seguía viva y consultable por RUT para los demás sistemas.
  *
  * Los tres estados están en `EstadoDePropagacion`. Lo que esta clase agrega es
  * lo que un enum solo no puede llevar: **el motivo, obligatorio en el tercer

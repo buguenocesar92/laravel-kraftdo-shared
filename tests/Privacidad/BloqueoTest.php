@@ -12,7 +12,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
 use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
 
 beforeEach(function () {
-    config(['privacidad.sistema' => 'discapacidad', 'privacidad.bloquear_durante_solicitud' => true]);
+    config(['privacidad.sistema' => 'nfc', 'privacidad.bloquear_durante_solicitud' => true]);
     $this->titular = PersonaDePrueba::create([
         'nombre' => 'Rocío Paredes',
         'documento' => '11.111.111-1',
@@ -20,8 +20,8 @@ beforeEach(function () {
         'fecha_nacimiento' => now()->subYears(40)->toDateString(),
     ]);
     $this->finalidad = Finalidad::create([
-        'sistema' => 'discapacidad', 'codigo' => 'atencion', 'nombre' => 'Atenciones',
-        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 20.422',
+        'sistema' => 'nfc', 'codigo' => 'atencion', 'nombre' => 'Atenciones',
+        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 19.496',
     ]);
     $this->verificacion = new ResultadoVerificacion(true, 'cedula_presencial');
 });
@@ -32,7 +32,7 @@ it('un titular sin bloqueos no está bloqueado', function () {
 
 it('bloquear una finalidad no bloquea las demás', function () {
     $otra = Finalidad::create([
-        'sistema' => 'discapacidad', 'codigo' => 'difusion', 'nombre' => 'Difusión',
+        'sistema' => 'nfc', 'codigo' => 'difusion', 'nombre' => 'Difusión',
         'base_licitud' => BaseLicitud::Consentimiento, 'es_accesoria' => true,
     ]);
 
@@ -152,37 +152,37 @@ it('el cese de una oposición acogida queda en la bitácora', function () {
 });
 
 it('un bloqueo puesto en otro sistema no cesa el tratamiento en este', function () {
-    // `privacidad_bloqueos` la comparten los ocho sistemas del ecosistema, y
+    // `privacidad_bloqueos` la comparten los sistemas del ecosistema, y
     // `vigente()` no miraba la columna `sistema` que `bloquear()` sí escribe.
-    // El efecto era una oposición acogida en licencias dejando sin atención a
-    // alguien en discapacidad, que nunca lo pidió.
-    config(['privacidad.sistema' => 'licencias']);
+    // El efecto era una oposición acogida en un sistema dejando sin atención a
+    // alguien en otro, que nunca lo pidió.
+    config(['privacidad.sistema' => 'crm']);
 
-    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en licencias');
+    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en crm');
 
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     expect(app(Bloqueos::class)->vigente($this->titular))->toBeFalse()
         ->and(app(Bloqueos::class)->vigente($this->titular, $this->finalidad))->toBeFalse();
 });
 
 it('el bloqueo de otro sistema se puede ver, para que nadie cese de menos en silencio', function () {
-    config(['privacidad.sistema' => 'licencias']);
-    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en licencias');
+    config(['privacidad.sistema' => 'crm']);
+    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en crm');
 
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
     app(Bloqueos::class)->bloquear($this->titular, $this->finalidad, 'Oposición acogida acá');
 
     expect(app(Bloqueos::class)->sistemasConBloqueoVigente($this->titular))
-        ->toBe(['discapacidad', 'licencias']);
+        ->toBe(['crm', 'nfc']);
 });
 
 it('un bloqueo levantado ya no aparece entre los sistemas del ecosistema', function () {
-    config(['privacidad.sistema' => 'licencias']);
+    config(['privacidad.sistema' => 'crm']);
     $bloqueo = app(Bloqueos::class)->bloquear($this->titular, null, 'Rectificación en trámite');
     $bloqueo->update(['levantado_en' => now()]);
 
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     expect(app(Bloqueos::class)->sistemasConBloqueoVigente($this->titular))->toBe([]);
 });
@@ -235,10 +235,10 @@ it('levantar un bloqueo exige decir por qué', function () {
 });
 
 it('un sistema no puede levantar el bloqueo de otro', function () {
-    config(['privacidad.sistema' => 'licencias']);
-    $bloqueo = app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en licencias');
+    config(['privacidad.sistema' => 'crm']);
+    $bloqueo = app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en crm');
 
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     expect(fn () => app(Bloqueos::class)->levantar($bloqueo, 'Acá no molesta.'))
         ->toThrow(ResolucionInvalida::class);
@@ -314,10 +314,10 @@ it('una rectificación ya resuelta deja de exceptuar a su bloqueo', function () 
 });
 
 it('la rectificación en trámite de otro sistema no toca lo que este puede corregir', function () {
-    config(['privacidad.sistema' => 'licencias']);
-    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en licencias');
+    config(['privacidad.sistema' => 'crm']);
+    app(Bloqueos::class)->bloquear($this->titular, null, 'Oposición acogida en crm');
 
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     expect(app(Bloqueos::class)->impideCorregir($this->titular))->toBeFalse();
 });

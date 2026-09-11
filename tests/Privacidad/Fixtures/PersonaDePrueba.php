@@ -9,7 +9,7 @@ use Kraftdo\Shared\Privacidad\SupresionEnCurso;
 
 /**
  * Titular mínimo para ejercitar el módulo sin depender del esquema de ningún
- * sistema real. Refleja lo que hace `Persona` en los municipales.
+ * sistema real. Refleja lo que hace `Persona` en los sistemas del ecosistema.
  */
 class PersonaDePrueba extends Model implements TitularDeDatos
 {

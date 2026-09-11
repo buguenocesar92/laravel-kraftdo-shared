@@ -30,13 +30,13 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
  *
  * Lo que estas pruebas fijan, y por qué existen: acoger una solicitud de
  * supresión con `Solicitudes::acoger()` a secas sellaba la solicitud como
- * resuelta y no suprimía nada. El municipio quedaba con constancia escrita de
+ * resuelta y no suprimía nada. La organización quedaba con constancia escrita de
  * haber cumplido un derecho que no cumplió, que es el peor de los dos estados
  * posibles —peor que no haberlo tramitado—.
  */
 beforeEach(function () {
     config([
-        'privacidad.sistema' => 'discapacidad',
+        'privacidad.sistema' => 'nfc',
         'privacidad.disco_evidencia' => 'local',
     ]);
 
@@ -72,16 +72,16 @@ beforeEach(function () {
     // el resolvedor por defecto (`NingunTitularVencido`) no da a nadie por
     // vencido, así que basta con crearla.
     $this->porFuncionLegal = fn () => Finalidad::create([
-        'sistema' => 'discapacidad',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal de personas con discapacidad',
+        'sistema' => 'nfc',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de clientes con tarjeta NFC',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422, art. 56',
+        'norma_habilitante' => 'Ley 19.496, art. 3',
         'plazo_retencion_meses' => 120,
     ]);
 
     $this->porConsentimiento = fn () => Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'difusion',
         'nombre' => 'Difusión de actividades',
         'base_licitud' => BaseLicitud::Consentimiento,
@@ -129,7 +129,7 @@ it('no procede mientras una finalidad por función legal tenga su plazo corriend
     ($this->porFuncionLegal)();
 
     expect(fn () => app(Supresiones::class)->aplicar($this->solicitud, 'Se acoge.'))
-        ->toThrow(SupresionNoProcede::class, 'Ley 20.422, art. 56');
+        ->toThrow(SupresionNoProcede::class, 'Ley 19.496, art. 3');
 
     $persona = ($this->comoQuedoEnLaBase)();
 
@@ -149,9 +149,9 @@ it('la evaluación nombra las finalidades que impiden sin tocar nada', function 
 
     expect($evaluacion->procedeTotal())->toBeFalse()
         ->and($evaluacion->esParcial())->toBeTrue()
-        ->and($evaluacion->codigosQueImpiden())->toBe(['registro_comunal'])
+        ->and($evaluacion->codigosQueImpiden())->toBe(['registro_clientes'])
         ->and($evaluacion->codigosQueCesan())->toBe(['difusion'])
-        ->and($evaluacion->explicacion())->toContain('Ley 20.422, art. 56')
+        ->and($evaluacion->explicacion())->toContain('Ley 19.496, art. 3')
         ->and(($this->comoQuedoEnLaBase)()->nombre)->toBe('Rocío Paredes');
 });
 
@@ -178,7 +178,7 @@ it('cuando una finalidad obliga a conservar y otra no, se acoge parcialmente y c
 
     $evidencia = EntradaBitacora::where('evento', 'supresion.parcial')->sole();
 
-    expect($evidencia->datos['impiden'])->toBe(['registro_comunal' => 'Ley 20.422, art. 56'])
+    expect($evidencia->datos['impiden'])->toBe(['registro_clientes' => 'Ley 19.496, art. 3'])
         ->and($evidencia->datos['cesan'])->toBe(['difusion']);
 });
 
@@ -335,7 +335,7 @@ it('una solicitud cuyo titular ya no está no se puede suprimir', function () {
 it('una supresión que nadie propagó no se le puede presentar al titular como aceptada por el maestro', function () {
     // El sitio de consumo que más importa: lo que devuelve `aplicar()` es lo
     // que un panel convierte en la frase «sus datos fueron suprimidos». Si el
-    // tercer estado se leyera como éxito, esa frase se le diría a un vecino
+    // tercer estado se leyera como éxito, esa frase se le diría a un titular
     // cuya identidad sigue viva y consultable por RUT en el registro federado.
     app()->instance(PropagaSupresion::class, new class implements PropagaSupresion
     {

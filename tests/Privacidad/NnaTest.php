@@ -17,10 +17,10 @@ use Kraftdo\Shared\Privacidad\Solicitante;
 use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
 
 beforeEach(function () {
-    config(['privacidad.sistema' => 'discapacidad']);
+    config(['privacidad.sistema' => 'nfc']);
 
     $this->finalidad = Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'difusion',
         'nombre' => 'Difusión',
         'base_licitud' => BaseLicitud::Consentimiento,
@@ -298,7 +298,7 @@ it('las finalidades ya existentes admiten NNA salvo que se diga lo contrario', f
     // las filas que ya existían cuando corrió la migración—, no el de
     // `$attributes`, que solo cubre las instancias nuevas.
     DB::table('privacidad_finalidades')->insert([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'preexistente',
         'nombre' => 'Finalidad de antes de esta columna',
         'base_licitud' => BaseLicitud::Consentimiento->value,

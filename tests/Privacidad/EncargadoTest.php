@@ -8,16 +8,16 @@ use Kraftdo\Shared\Privacidad\Modelos\Encargado;
 use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
 
 beforeEach(function () {
-    config(['privacidad.sistema' => 'discapacidad', 'privacidad.responsable.nombre' => 'la organización']);
+    config(['privacidad.sistema' => 'nfc', 'privacidad.responsable.nombre' => 'la organización']);
     $this->finalidad = Finalidad::create([
-        'sistema' => 'discapacidad', 'codigo' => 'registro_comunal', 'nombre' => 'Registro comunal',
-        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 20.422',
+        'sistema' => 'nfc', 'codigo' => 'registro_clientes', 'nombre' => 'Registro de clientes',
+        'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 19.496',
     ]);
 });
 
 it('asocia un encargado a una finalidad', function () {
     $encargado = Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Maestro de personas', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Maestro de personas', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subMonth(), 'contrato_vence_en' => now()->addYear(),
     ]);
 
@@ -30,22 +30,22 @@ it('asocia un encargado a una finalidad', function () {
 it('la relación se recorre también desde el encargado', function () {
     // La inversa importa tanto como la directa: un encargado real trata datos
     // de varias finalidades, y el RAT lo cuenta una vez por cada una.
-    $encargado = Encargado::create(['sistema' => 'discapacidad', 'nombre' => 'Maestro de personas', 'rol' => 'encargado']);
+    $encargado = Encargado::create(['sistema' => 'nfc', 'nombre' => 'Maestro de personas', 'rol' => 'encargado']);
     $encargado->finalidades()->attach($this->finalidad);
 
     expect($encargado->fresh()->finalidades)->toHaveCount(1)
-        ->and($encargado->fresh()->finalidades->first()->codigo)->toBe('registro_comunal');
+        ->and($encargado->fresh()->finalidades->first()->codigo)->toBe('registro_clientes');
 });
 
 it('detecta a los encargados sin contrato firmado', function () {
-    Encargado::create(['sistema' => 'discapacidad', 'nombre' => 'Sin contrato', 'rol' => 'encargado']);
+    Encargado::create(['sistema' => 'nfc', 'nombre' => 'Sin contrato', 'rol' => 'encargado']);
 
     expect(Encargado::sinContratoVigente()->pluck('nombre')->all())->toBe(['Sin contrato']);
 });
 
 it('detecta a los encargados con contrato vencido', function () {
     Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Vencido', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Vencido', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subYears(3), 'contrato_vence_en' => now()->subMonth(),
     ]);
 
@@ -54,7 +54,7 @@ it('detecta a los encargados con contrato vencido', function () {
 
 it('no marca al que tiene contrato al día', function () {
     Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Al día', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Al día', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subMonth(), 'contrato_vence_en' => now()->addYear(),
     ]);
 
@@ -63,7 +63,7 @@ it('no marca al que tiene contrato al día', function () {
 
 it('un contrato sin fecha de vencimiento se considera vigente', function () {
     Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Indefinido', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Indefinido', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subMonth(),
     ]);
 
@@ -74,7 +74,7 @@ it('un encargado dado de baja no cuenta aunque su contrato esté vencido', funct
     // Ya no trata datos de este sistema: su contrato vencido es historia, no
     // una alerta operativa que alguien tenga que ir a renovar.
     Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'De baja', 'rol' => 'encargado', 'activo' => false,
+        'sistema' => 'nfc', 'nombre' => 'De baja', 'rol' => 'encargado', 'activo' => false,
         'contrato_firmado_en' => now()->subYears(3), 'contrato_vence_en' => now()->subMonth(),
     ]);
 
@@ -82,7 +82,7 @@ it('un encargado dado de baja no cuenta aunque su contrato esté vencido', funct
 });
 
 it('el RAT avisa de los encargados sin contrato al día', function () {
-    Encargado::create(['sistema' => 'discapacidad', 'nombre' => 'Sin contrato', 'rol' => 'encargado']);
+    Encargado::create(['sistema' => 'nfc', 'nombre' => 'Sin contrato', 'rol' => 'encargado']);
 
     $codigo = Artisan::call('privacidad:rat');
 
@@ -92,7 +92,7 @@ it('el RAT avisa de los encargados sin contrato al día', function () {
 
 it('el RAT no avisa nada cuando todos los encargados están al día', function () {
     Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Al día', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Al día', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subMonth(), 'contrato_vence_en' => now()->addYear(),
     ]);
 
@@ -104,7 +104,7 @@ it('el RAT no avisa nada cuando todos los encargados están al día', function (
 
 it('el RAT en json incluye los encargados de cada finalidad', function () {
     $encargado = Encargado::create([
-        'sistema' => 'discapacidad', 'nombre' => 'Maestro de personas', 'rol' => 'encargado',
+        'sistema' => 'nfc', 'nombre' => 'Maestro de personas', 'rol' => 'encargado',
         'contrato_firmado_en' => now()->subMonth(), 'contrato_vence_en' => now()->addYear(),
     ]);
     $this->finalidad->encargados()->attach($encargado);
@@ -137,7 +137,7 @@ it('privacidad_encargados no tiene titular_id: el barrido de anonimización no l
 it('contrato_path no entra al borrado de archivos de la anonimización', function () {
     // El documento acredita el contrato con un TERCERO, no datos de un
     // titular: no tiene por qué —ni debe— borrarse cuando se anonimiza a un
-    // vecino cualquiera. Confirmado contra la lista real y no contra la
+    // titular cualquiera. Confirmado contra la lista real y no contra la
     // intención: si alguien agrega la columna a ARCHIVOS sin revisar este
     // argumento, este test se pone rojo.
     $archivos = (new ReflectionClass(Bitacora::class))->getConstant('ARCHIVOS');

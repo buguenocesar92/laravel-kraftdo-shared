@@ -7,7 +7,7 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
 /**
  * Aviso —no prohibición— cuando quien va a resolver es quien recibió.
  *
- * El módulo permite que sean la misma persona: en un municipio chico el mismo
+ * El módulo permite que sean la misma persona: en una organización chica el mismo
  * funcionario atiende el mesón y resuelve, y eso lo decide la organización, no este
  * código. Lo que sí hace es que la coincidencia se vea justo en el momento de
  * resolver.

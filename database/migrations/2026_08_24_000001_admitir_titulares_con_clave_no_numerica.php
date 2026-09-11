@@ -11,12 +11,12 @@ use Kraftdo\Shared\Privacidad\InmutabilidadEnBaseDeDatos;
  *
  * El morph nació como `bigint` porque los primeros sistemas del ecosistema
  * identifican a la persona por un id autoincremental. Hay sistemas que no: en
- * `atencionvecino` la clave primaria del vecino es su RUT, y MariaDB truncaba
- * «11111111-1» a 11111111 al escribirlo acá.
+ * un sistema con clave primaria no numérica la clave primaria del titular es su
+ * RUT, y MariaDB truncaba «11111111-1» a 11111111 al escribirlo acá.
  *
  * Eso no es un detalle de tipos: la solicitud quedaba apuntando a un titular que
  * NO era el que vino al mesón —o a ninguno—, y el expediente que se le entrega a
- * un vecino podía traer los datos de otro. En SQLite no se veía, porque no tipa
+ * un titular podía traer los datos de otro. En SQLite no se veía, porque no tipa
  * las columnas: apareció recién al correr la suite contra el motor de
  * producción.
  *

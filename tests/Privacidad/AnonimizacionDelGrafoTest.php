@@ -122,7 +122,7 @@ beforeEach(function () {
     // historia sembrada abajo siempre deja evidencia_path/respuesta_path/
     // acreditacion_path seteados, así que sin esto cualquier desvincular()
     // de este archivo truena con DiscoEvidenciaNoConfigurado.
-    config(['privacidad.sistema' => 'discapacidad', 'privacidad.disco_evidencia' => 'local']);
+    config(['privacidad.sistema' => 'nfc', 'privacidad.disco_evidencia' => 'local']);
 
     // Declaración obligatoria desde que la supresión se propaga al maestro de
     // personas: sin ella, `AplicarRetencion` se niega a ejecutar. Acá se declara
@@ -158,16 +158,16 @@ beforeEach(function () {
     ]);
 
     $this->finalidad = Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'atencion',
         'nombre' => 'Atención de casos',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422',
+        'norma_habilitante' => 'Ley 19.496',
         'plazo_retencion_meses' => 60,
     ]);
 
     $this->accesoria = Finalidad::create([
-        'sistema' => 'discapacidad',
+        'sistema' => 'nfc',
         'codigo' => 'difusion',
         'nombre' => 'Difusión de actividades',
         'base_licitud' => BaseLicitud::Consentimiento,
@@ -386,8 +386,8 @@ it('ningún dato de una fila huérfana vuelve a una solicitud con titular vivo',
 });
 
 it('el hash del identificador tampoco sobrevive en los consentimientos', function () {
-    // vigente_clave es sha1(morph|id|finalidad): con la lista de ids del
-    // municipio se revierte por fuerza bruta, así que dejarlo equivale a dejar
+    // vigente_clave es sha1(morph|id|finalidad): con la lista de ids de la
+    // organización se revierte por fuerza bruta, así que dejarlo equivale a dejar
     // el titular_id.
     app(AplicarRetencion::class)->ejecutar(simulacion: false);
 
@@ -481,10 +481,10 @@ it('el identificador de grupo no viaja junto al instante de la anonimización', 
     // Lo que esta prueba NO acredita, y ninguna prueba de este módulo puede:
     // que el conjunto de filas huérfanas deje de ser atribuible a una persona.
     // Sin tocar el ref quedan dos rutas, ambas con 12 de 12 en el review
-    // independiente (40 vecinos, 12 anonimizados en la misma corrida):
+    // independiente (40 titulares, 12 anonimizados en la misma corrida):
     //
     //   1. Fechas de negocio: `personas.created_at` sobrevive —es del adoptante
-    //      y nadie la anula— y se empareja por vecino más cercano con la fecha
+    //      y nadie la anula— y se empareja por titular más cercano con la fecha
     //      de negocio más antigua del grupo huérfano (`entregado_en`,
     //      `otorgado_en`, `ocurrido_en`), que sobrevive por ser el hecho
     //      auditable. Aguanta 72 h de ruido.

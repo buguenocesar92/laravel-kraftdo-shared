@@ -54,7 +54,7 @@ it('cuenta en singular cuando falta una sola cosa', function (): void {
     // que hace dudar de lo que el resto del informe dice.
     config([
         'privacidad.sistema' => 'demo',
-        'privacidad.responsable.nombre' => 'Municipalidad de Prueba',
+        'privacidad.responsable.nombre' => 'Organización de Prueba',
         'privacidad.responsable.contacto' => 'privacidad@example.cl',
         'privacidad.responsable.delegado' => 'Delegada de Prueba',
         'privacidad.disco_evidencia' => 'local',
@@ -86,7 +86,7 @@ it('no acusa al contacto de estar en blanco cuando el que falta es el delegado',
     // herramienta que existe para que le crean no puede afirmar de más.
     config([
         'privacidad.sistema' => 'demo',
-        'privacidad.responsable.nombre' => 'Municipalidad de Prueba',
+        'privacidad.responsable.nombre' => 'Organización de Prueba',
         'privacidad.responsable.contacto' => 'privacidad@example.cl',
         'privacidad.responsable.delegado' => null,
     ]);
@@ -111,7 +111,7 @@ it('nombra el contrato de supresión cuando no está declarado, porque sin él l
 it('deja de reclamar lo que el adoptante ya resolvió', function (): void {
     config([
         'privacidad.sistema' => 'demo',
-        'privacidad.responsable.nombre' => 'Municipalidad de Prueba',
+        'privacidad.responsable.nombre' => 'Organización de Prueba',
         'privacidad.responsable.contacto' => 'privacidad@example.cl',
         'privacidad.responsable.delegado' => 'Delegada de Prueba',
         'privacidad.disco_evidencia' => 'local',

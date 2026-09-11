@@ -11,7 +11,7 @@ use Kraftdo\Shared\Privacidad\Contratos\TitularDeDatos;
  * Existe porque hay sistemas del ecosistema que identifican a la persona por su
  * RUT y lo usan como clave primaria. Si el módulo solo aceptara claves
  * numéricas, en esos sistemas el morph guardaría un titular equivocado —MariaDB
- * trunca «11111111-1» a 11111111— y el expediente de un vecino terminaría
+ * trunca «11111111-1» a 11111111— y el expediente de un titular terminaría
  * apuntando a otro.
  */
 class TitularConRutDePrueba extends Model implements TitularDeDatos

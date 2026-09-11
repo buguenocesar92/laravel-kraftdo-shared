@@ -11,8 +11,8 @@ use Throwable;
 
 /**
  * Aplicar una rectificación solo en el sistema local es peor que no aplicarla:
- * la siguiente sincronización con el maestro la pisa, y para entonces el
- * municipio ya certificó por escrito que el dato quedó corregido.
+ * la siguiente sincronización con el maestro la pisa, y para entonces la
+ * organización ya certificó por escrito que el dato quedó corregido.
  */
 class Rectificaciones
 {
