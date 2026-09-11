@@ -75,7 +75,7 @@ class Bloqueo extends Model
      * Los bloqueos de UN sistema del ecosistema.
      *
      * Existe por lo mismo que el de `Finalidad`: esta tabla es compartida por
-     * los ocho sistemas y la columna estaba escrita pero no consultada. Ver el
+     * los sistemas del ecosistema y la columna estaba escrita pero no consultada. Ver el
      * docblock de `Bloqueos` para por qué el alcance del bloqueo es el sistema
      * en que se presentó la solicitud y no el ecosistema entero.
      *

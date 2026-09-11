@@ -58,7 +58,7 @@ class Solicitud extends Model
         // titular (su RUT, su dirección, en algunos sistemas un diagnóstico),
         // `verificacion_identidad.evidencia` es el RUN con que se acreditó y
         // `fundamento_resolucion` es la respuesta al titular. Las tres tablas
-        // las comparten los ocho sistemas.
+        // las comparten los sistemas del ecosistema.
         //
         // Ojo con los `update()` masivos (`Solicitud::query()->update()`): no
         // pasan por los casts. En este modelo hoy no hay ninguno; si aparece,

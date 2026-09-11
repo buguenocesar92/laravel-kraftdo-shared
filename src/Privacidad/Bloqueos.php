@@ -76,8 +76,8 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
  * **Compatibilidad con las filas que ya existen.** Ninguna migración hace falta:
  * `bloquear()` siempre escribió `sistema`, así que toda fila existente ya dice a
  * qué sistema pertenece. Lo que SÍ cambia es su significado efectivo: un bloqueo
- * sin finalidad que hasta hoy frenaba —a quien consultara— en los ocho sistemas,
- * desde ahora frena solo en el suyo. Si alguna organización venía apoyándose en ese
+ * sin finalidad que hasta hoy frenaba —a quien consultara— en todos los
+ * sistemas del ecosistema, desde ahora frena solo en el suyo. Si alguna organización venía apoyándose en ese
  * derrame para dar por cesado un tratamiento en otro sistema, ese cese hay que
  * volver a decidirlo y registrarlo donde corresponde.
  */
@@ -313,7 +313,7 @@ class Bloqueos
      *
      * El filtro por sistema no estaba y su ausencia era el defecto más grave del
      * módulo: `bloquear()` escribía la columna y esta consulta no la miraba, con
-     * la tabla compartida por los ocho sistemas del ecosistema. Ver el docblock
+     * la tabla compartida por los sistemas del ecosistema. Ver el docblock
      * de la clase para el alcance que se eligió y por qué.
      */
     public function vigente(Model $titular, ?Finalidad $finalidad = null): bool

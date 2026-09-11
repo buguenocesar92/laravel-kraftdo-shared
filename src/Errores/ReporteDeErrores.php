@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Log;
  * Ante cualquier duda —DSN vacío, ilegible, sin host— NO se manda nada. Perder
  * el reporte de un error cuesta mucho menos que mandarlo a donde no corresponde.
  *
- * Portada byte a byte desde `App\Support\ReporteDeErrores`, idéntica en 7 de los
- * 8 sistemas del ecosistema. Se usa desde `bootstrap/app.php`:
+ * Portada byte a byte desde `App\Support\ReporteDeErrores`, idéntica en casi
+ * todos los sistemas del ecosistema. Se usa desde `bootstrap/app.php`:
  *
  *     use Kraftdo\Shared\Errores\ReporteDeErrores;
  *     if (class_exists(Integration::class) && ReporteDeErrores::vaADestinoPropio()) {
