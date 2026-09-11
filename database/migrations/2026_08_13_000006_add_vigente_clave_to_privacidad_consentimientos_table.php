@@ -26,7 +26,7 @@ return new class extends Migration
             //      índice impediría otorgar un consentimiento nuevo.
             //   3. `Bitacora::desvincular()` la limpia SOLA, sin tocar `revocado_en`.
             //      Es un hash del identificador del titular —sha1(morph|id|finalidad)—,
-            //      reversible por fuerza bruta contra la lista de ids dla organización, así
+            //      reversible por fuerza bruta contra la lista de ids de la organización, así
             //      que al anonimizar tiene que irse igual que el `titular_id`. Y
             //      `revocado_en` no se toca porque sería falso: a esa persona nadie le
             //      revocó el consentimiento, se la anonimizó.

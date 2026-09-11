@@ -16,7 +16,7 @@ use RuntimeException;
  *
  * Lo que este módulo NO hace, y es deliberado: **no rechaza la solicitud por su
  * cuenta**. Deja la solicitud en trámite y truena. Rechazar es una resolución
- * fundada que le responde a un ciudadano y que alguien firma; escribirla desde
+ * fundada que le responde a un titular y que alguien firma; escribirla desde
  * acá significaría inventar el fundamento de una resolución administrativa, que
  * es el mismo defecto —un registro que dice que la organización decidió algo que
  * no decidió— por el que existe el resto de este módulo.

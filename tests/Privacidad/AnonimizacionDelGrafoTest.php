@@ -131,7 +131,7 @@ beforeEach(function () {
     app()->bind(PropagaSupresion::class, SupresionSoloLocal::class);
 
     // El caso que hace peligrosos a los `user_*`: un adoptante con portal
-    // ciudadano, donde quien está autenticado es el propio titular. El módulo
+    // de autoatención, donde quien está autenticado es el propio titular. El módulo
     // guarda Auth::id() sin preguntar, así que ese id ES la persona.
     $this->usuario = new UsuarioDePrueba(['id' => 77]);
     $this->actingAs($this->usuario);
@@ -586,7 +586,7 @@ it('toda columna clasificable de una tabla barrida está clasificada', function 
 });
 
 it('los ids de usuario no sobreviven en las filas del titular anonimizado', function () {
-    // En un portal ciudadano ese entero es la cuenta del propio titular, y el
+    // En un portal de autoatención ese entero es la cuenta del propio titular, y el
     // módulo no puede distinguirlo del id de un funcionario: guarda Auth::id()
     // sin preguntar. Conservarlo dejaría un puntero directo a la persona que
     // ninguna guardia de texto ve.

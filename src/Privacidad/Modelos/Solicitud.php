@@ -26,7 +26,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
  * @property Carbon $recibida_en
  * @property Carbon $vence_en
  * @property Carbon|null $resuelta_en
- * @property string $detalle prosa dictada por el ciudadano; cifrada en la
+ * @property string $detalle prosa dictada por el titular; cifrada en la
  *                           base (ver CifradoCast)
  * @property string|null $fundamento_resolucion la respuesta escrita al
  *                                              titular; cifrada en la base
@@ -55,7 +55,7 @@ class Solicitud extends Model
         'vence_en' => 'datetime',
         'resuelta_en' => 'datetime',
         // El texto libre va cifrado en reposo: `detalle` es lo que dicta el
-        // ciudadano (su RUT, su dirección, en discapacidad un diagnóstico),
+        // titular (su RUT, su dirección, en algunos sistemas un diagnóstico),
         // `verificacion_identidad.evidencia` es el RUN con que se acreditó y
         // `fundamento_resolucion` es la respuesta al titular. Las tres tablas
         // las comparten los ocho sistemas.

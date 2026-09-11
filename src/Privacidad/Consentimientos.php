@@ -13,8 +13,8 @@ use Kraftdo\Shared\Privacidad\Modelos\TextoInformativo;
 
 /**
  * El consentimiento solo aplica a finalidades accesorias: el registro base se
- * funda en el ejercicio de funciones legales dla organización y no se revoca, o un
- * ciudadano molesto podría borrar su propia inscripción en un registro comunal.
+ * funda en el ejercicio de funciones legales de la organización y no se revoca, o un
+ * titular molesto podría borrar su propia inscripción en un registro de clientes.
  */
 class Consentimientos
 {

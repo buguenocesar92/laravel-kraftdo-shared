@@ -19,7 +19,7 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
 /**
  * El texto libre del módulo va cifrado en reposo.
  *
- * `detalle` es prosa dictada por el ciudadano («mi RUT es…, vivo en…»),
+ * `detalle` es prosa dictada por el titular («mi RUT es…, vivo en…»),
  * `verificacion_identidad.evidencia` guarda el RUN con que se acreditó, y los
  * motivos de un bloqueo los dicta un funcionario nombrando a la persona o a un
  * familiar. En discapacidad además la solicitud puede describir un

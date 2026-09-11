@@ -41,7 +41,7 @@ class Edades
      *   en la zona que trae— y NO convertida con `setTimezone()`, que movería el
      *   día y empeoraría el problema en vez de arreglarlo: una fecha de
      *   nacimiento es un día del calendario, no un instante;
-     * - la de hoy en `config('app.timezone')`, que es la dla organización que opera
+     * - la de hoy en `config('app.timezone')`, que es la de la organización que opera
      *   el registro.
      *
      * Lo que esto NO cubre, dicho en su medida: si el adoptante guarda la fecha

@@ -68,7 +68,7 @@ it('el día en que se cumplen 18 años ya no es NNA', function () {
         ->and(app(Edades::class)->esNNA($vispera))->toBeTrue();
 });
 
-it('la frontera se cruza en la zona horaria dla organización, no en la del valor recibido', function () {
+it('la frontera se cruza en la zona horaria de la organización, no en la del valor recibido', function () {
     // El caso que el fixture no puede ejercitar: `fecha_nacimiento` está
     // casteada por Eloquent y sale siempre en la zona de la aplicación, así que
     // ninguna prueba que pase por el modelo ve este defecto. Un adoptante que

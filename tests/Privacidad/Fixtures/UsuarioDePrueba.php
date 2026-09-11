@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * No tiene tabla ni se persiste: al módulo lo único que le llega es el id que
  * queda guardado en las columnas `user_*`. Sirve para ejercitar el caso que
- * importa —un adoptante con portal ciudadano, donde el usuario autenticado ES
+ * importa —un adoptante con portal de autoatención, donde el usuario autenticado ES
  * el titular— sin arrastrar acá el esquema de autenticación de ningún sistema.
  */
 class UsuarioDePrueba extends Model implements ContratoAutenticable

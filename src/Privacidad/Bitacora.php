@@ -64,7 +64,7 @@ class Bitacora
      * actuó, no la persona, y conservarlo parece rendición de cuentas. Pero este
      * es un paquete compartido y no puede ver el modelo de autenticación del
      * sistema que lo adopta: `BitacoraEnBaseDeDatos` guarda `Auth::id()` sin
-     * preguntar, y en un adoptante con portal ciudadano —que es hacia donde va
+     * preguntar, y en un adoptante con portal de autoatención —que es hacia donde va
      * el ecosistema— `Auth::id()` ES la cuenta del propio titular. Ahí la
      * columna deja de ser trazabilidad y pasa a ser un puntero directo a la
      * persona, entero y sin hashear, que ninguna de las guardias de texto
@@ -98,7 +98,7 @@ class Bitacora
         'privacidad_solicitudes' => [
             'user_registro_id' => null,
             'user_resolucion_id' => null,
-            // Prosa dictada por el ciudadano: puede traer su RUT, su dirección
+            // Prosa dictada por el titular: puede traer su RUT, su dirección
             // o el nombre de un familiar. NOT NULL, va con centinela.
             'detalle' => self::SUPRIMIDO,
             // Se conserva `metodo` («cedula_presencial») porque acredita CÓMO se
@@ -140,7 +140,7 @@ class Bitacora
             'user_id' => null,
             // Quién levantó la suspensión, con la misma exposición que `user_id`
             // y por el mismo motivo (ver el pendiente 5-quater del spec): en un
-            // adoptante con portal ciudadano ese entero puede ser la cuenta del
+            // adoptante con portal de autoatención ese entero puede ser la cuenta del
             // propio titular.
             'user_levanta_id' => null,
             // Prosa dictada por el funcionario que aplica el bloqueo («la hija
@@ -523,7 +523,7 @@ class Bitacora
      * Sin usuario a propósito: la evidencia la escribe `registrar()`, que guarda
      * Auth::id() sin preguntar. Normalmente es null porque la retención corre
      * por cron, pero un adoptante que ofrezca «eliminar mi cuenta» en su portal
-     * ciudadano la dispararía con el propio titular autenticado, y quedaría su
+     * de autoatención la dispararía con el propio titular autenticado, y quedaría su
      * id de usuario en la fila del instante exacto de la anonimización: el mismo
      * camino que cierra la ventana de desvincular(), entrando por un entero.
      * Vale igual para el agregado por corrida: una corrida con un solo titular
