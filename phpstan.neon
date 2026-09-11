@@ -79,5 +79,6 @@ parameters:
         # la condición, así que no ve que el origen es literal.
         -
             identifier: argument.type
+            message: '#unprepared#'
             paths:
                 - src/Privacidad/InmutabilidadEnBaseDeDatos.php
