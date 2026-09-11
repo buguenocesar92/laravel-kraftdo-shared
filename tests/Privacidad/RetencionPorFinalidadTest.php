@@ -13,7 +13,7 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
  * Una persona está terminada cuando TODAS las finalidades que la alcanzan
  * vencieron, no cuando venció la primera. El caso real que originó estas
  * pruebas: `agenda_citas` (24 meses) anonimizaba a 11.517 personas que
- * `registro_comunal` (120 meses) todavía tenía que conservar.
+ * `registro_clientes` (120 meses) todavía tenía que conservar.
  */
 beforeEach(function () {
     config(['privacidad.sistema' => 'nfc']);
@@ -34,15 +34,15 @@ beforeEach(function () {
 
     $this->larga = Finalidad::create([
         'sistema' => 'nfc',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de clientes',
         'base_licitud' => BaseLicitud::FuncionLegal,
-        'norma_habilitante' => 'Ley 20.422',
+        'norma_habilitante' => 'Ley 19.496',
         'plazo_retencion_meses' => 120,
     ]);
 
     // Vencida solo para la finalidad corta: 92 meses, a mitad de camino del
-    // plazo del registro comunal. Es la persona id 34 de la corrida real.
+    // plazo del registro de clientes. Es la persona id 34 de la corrida real.
     $this->aMedioCamino = PersonaDePrueba::create([
         'nombre' => 'Rocío Paredes',
         'documento' => '11.111.111-1',
@@ -100,7 +100,7 @@ it('el resumen distingue las personas distintas de la suma por finalidad', funct
 
     expect($resumen->porFinalidad)->toBe([
         ['finalidad' => 'agenda_citas', 'titulares' => 2],
-        ['finalidad' => 'registro_comunal', 'titulares' => 1],
+        ['finalidad' => 'registro_clientes', 'titulares' => 1],
     ])
         ->and($resumen->personas)->toBe(2)
         ->and($resumen->suprimibles)->toBe(1)
@@ -112,7 +112,7 @@ it('la evidencia dice qué finalidades se consideraron, no solo la que venció p
 
     $aplicada = EntradaBitacora::where('evento', 'retencion.aplicada')->sole();
 
-    expect($aplicada->datos['finalidades'])->toBe(['agenda_citas' => 24, 'registro_comunal' => 120])
+    expect($aplicada->datos['finalidades'])->toBe(['agenda_citas' => 24, 'registro_clientes' => 120])
         // Y nada más que eso, además de qué pasó con el maestro: la evidencia de
         // una supresión no puede engordar con datos del titular.
         ->and(array_keys($aplicada->datos))->toBe(['finalidades', 'propagacion']);
@@ -135,7 +135,7 @@ it('una finalidad que no vence a nadie aparece en cero y explica por qué no se 
 
     expect($resumen->porFinalidad)->toBe([
         ['finalidad' => 'agenda_citas', 'titulares' => 2],
-        ['finalidad' => 'registro_comunal', 'titulares' => 0],
+        ['finalidad' => 'registro_clientes', 'titulares' => 0],
     ])
         ->and($resumen->suprimibles)->toBe(0)
         ->and($resumen->sinNadaQueRevisar())->toBeFalse();
