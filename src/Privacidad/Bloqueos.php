@@ -322,7 +322,7 @@ class Bloqueos
             ->delSistema((string) config('privacidad.sistema'))
             // Un bloqueo sin finalidad alcanza a todas.
             ->where(fn ($q) => $q->whereNull('finalidad_id')
-                ->when($finalidad, fn ($q) => $q->orWhere('finalidad_id', $finalidad->getKey())))
+                ->when($finalidad, fn ($q) => $q->orWhere('finalidad_id', $finalidad?->getKey())))
             ->exists();
     }
 
@@ -368,7 +368,7 @@ class Bloqueos
         return $this->deEsteTitular($titular)
             ->delSistema((string) config('privacidad.sistema'))
             ->where(fn ($q) => $q->whereNull('finalidad_id')
-                ->when($finalidad, fn ($q) => $q->orWhere('finalidad_id', $finalidad->getKey())))
+                ->when($finalidad, fn ($q) => $q->orWhere('finalidad_id', $finalidad?->getKey())))
             // Un bloqueo sin solicitud, o con una que no es una rectificación
             // abierta, sí impide: `whereDoesntHave` da verdadero para los dos.
             ->whereDoesntHave('solicitud', fn ($q) => $q
