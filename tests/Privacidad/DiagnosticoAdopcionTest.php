@@ -50,7 +50,7 @@ it('un sistema recién instalado sale reprobado y dice exactamente qué le falta
 });
 
 it('cuenta en singular cuando falta una sola cosa', function (): void {
-    // Sale en pantalla de un funcionario. «Faltan 1 cosas» es el tipo de detalle
+    // Sale en pantalla de un operador. «Faltan 1 cosas» es el tipo de detalle
     // que hace dudar de lo que el resto del informe dice.
     config([
         'privacidad.sistema' => 'demo',

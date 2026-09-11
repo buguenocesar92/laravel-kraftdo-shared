@@ -110,7 +110,7 @@ it('acoger parcialmente una oposición tampoco levanta el bloqueo', function () 
         $this->titular, TipoDeSolicitud::Oposicion, 'Me opongo', $this->verificacion,
     );
 
-    app(Solicitudes::class)->acogerParcialmente($solicitud, 'Cesa la difusión; el registro comunal se conserva.');
+    app(Solicitudes::class)->acogerParcialmente($solicitud, 'Cesa la difusión; el registro se conserva.');
 
     expect(app(Bloqueos::class)->vigente($this->titular))->toBeTrue();
 });
@@ -217,7 +217,7 @@ it('levantar deja la misma constancia que levantar por solicitud', function () {
         // «acá se levantó un bloqueo» se busque siempre igual.
         ->and($constancia->datos['bloqueos'])->toBe(1)
         ->and($constancia->datos)->toHaveKey('solicitud_id')
-        // El texto del funcionario NO viaja a la bitácora: su invariante es
+        // El texto del operador NO viaja a la bitácora: su invariante es
         // nombres de campo e ids, nunca prosa que pueda nombrar a alguien.
         ->and($constancia->datos)->not->toHaveKey('motivo');
 });

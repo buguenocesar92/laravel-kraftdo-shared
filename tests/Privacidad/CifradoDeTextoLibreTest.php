@@ -21,7 +21,7 @@ use Kraftdo\Shared\Tests\Privacidad\Fixtures\PersonaDePrueba;
  *
  * `detalle` es prosa dictada por el titular («mi RUT es…, vivo en…»),
  * `verificacion_identidad.evidencia` guarda el RUN con que se acreditó, y los
- * motivos de un bloqueo los dicta un funcionario nombrando a la persona o a un
+ * motivos de un bloqueo los dicta un operador nombrando a la persona o a un
  * familiar. En discapacidad además la solicitud puede describir un
  * diagnóstico. Todo eso estaba en claro en dos tablas que comparten los ocho
  * sistemas, cuando la regla transversal del ecosistema es que un dato personal

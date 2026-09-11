@@ -159,7 +159,7 @@ it('cuando una finalidad obliga a conservar y otra no, se acoge parcialmente y c
     ($this->porFuncionLegal)();
     $difusion = ($this->porConsentimiento)();
 
-    $resultado = app(Supresiones::class)->aplicar($this->solicitud, 'Cesa la difusión; el registro comunal se conserva.');
+    $resultado = app(Supresiones::class)->aplicar($this->solicitud, 'Cesa la difusión; el registro se conserva.');
 
     $persona = ($this->comoQuedoEnLaBase)();
 

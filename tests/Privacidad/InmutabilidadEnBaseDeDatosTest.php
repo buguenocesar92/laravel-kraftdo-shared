@@ -109,7 +109,7 @@ function entradaConAutor(int $userId = 7, ?int $titularId = 1, ?string $ref = nu
     ]);
 }
 
-it('el motor rechaza reasignarle la acción a otro funcionario', function () {
+it('el motor rechaza reasignarle la acción a otro operador', function () {
     entradaConAutor(userId: 7);
 
     expect(fn () => DB::table('privacidad_bitacora')->update(['user_id' => 999]))

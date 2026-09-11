@@ -12,8 +12,8 @@ function finalidadBase(array $extra = []): array
 {
     return array_merge([
         'sistema' => 'discapacidad',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de clientes',
         'base_licitud' => BaseLicitud::FuncionLegal,
         'norma_habilitante' => 'Ley 20.422',
     ], $extra);

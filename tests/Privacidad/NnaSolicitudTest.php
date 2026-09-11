@@ -34,7 +34,7 @@ it('un NNA no ejerce solo ninguno de los cinco derechos', function (TipoDeSolici
     // La asimetría ERA el defecto: el mismo niño de 10 años no podía consentir
     // que le publicaran una foto y sí podía pedir la copia íntegra de su
     // registro de discapacidad —datos de salud—, que le acogieran una supresión
-    // que lo saca de un registro comunal del que su familia puede depender, o
+    // que lo saca de un registro del que su familia puede depender, o
     // una rectificación que se propaga al maestro federado de personas.
     expect(fn () => app(Solicitudes::class)->registrar(
         $this->nna, $tipo, 'Lo pido yo', $this->verificacion,

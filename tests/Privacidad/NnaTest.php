@@ -290,7 +290,7 @@ it('una finalidad que no admite NNA sigue sirviendo a los adultos', function () 
 
 it('las finalidades ya existentes admiten NNA salvo que se diga lo contrario', function () {
     // El default es true a propósito: apagarlo retroactivamente dejaría sin
-    // base a los consentimientos ya otorgados de un registro comunal que trata
+    // base a los consentimientos ya otorgados de un registro que trata
     // menores desde antes de esta migración.
     //
     // Se inserta por query builder, saltándose el modelo, porque el default
@@ -424,7 +424,7 @@ it('al titular que actúa por sí mismo no se le pide acreditar nada', function 
 });
 
 it('las dos negativas del régimen de NNA son excepciones distintas', function () {
-    // Compartían clase, y el funcionario que las ve tiene que hacer cosas
+    // Compartían clase, y el operador que las ve tiene que hacer cosas
     // distintas: con la edad desconocida hay que pedir el documento de la fecha
     // de nacimiento; con el menor que quiere firmar solo hay que llamar al
     // representante. Se comprobó que ningún test las distinguía intercambiando

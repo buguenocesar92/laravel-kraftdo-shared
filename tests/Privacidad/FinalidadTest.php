@@ -9,8 +9,8 @@ use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
 it('guarda una finalidad fundada en función legal con su norma habilitante', function () {
     $finalidad = Finalidad::create([
         'sistema' => 'discapacidad',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal de personas con discapacidad',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de personas con discapacidad',
         'base_licitud' => BaseLicitud::FuncionLegal,
         'norma_habilitante' => 'Ley 20.422, art. 1',
         // Declara `salud`, así que necesita además la causal que habilita tocar
@@ -58,8 +58,8 @@ it('rechaza una finalidad accesoria que no se funde en el consentimiento', funct
 it('sabe qué finalidades exigen consentimiento del titular', function () {
     Finalidad::create([
         'sistema' => 'discapacidad',
-        'codigo' => 'registro_comunal',
-        'nombre' => 'Registro comunal',
+        'codigo' => 'registro_clientes',
+        'nombre' => 'Registro de clientes',
         'base_licitud' => BaseLicitud::FuncionLegal,
         'norma_habilitante' => 'Ley 20.422',
         'es_accesoria' => false,

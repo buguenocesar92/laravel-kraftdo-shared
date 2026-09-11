@@ -47,7 +47,7 @@ it('acepta también el id del texto, que es lo que viaja en un formulario', func
 
 it('acredita el texto que se mostró, aunque entretanto se haya publicado otro', function () {
     // El defecto que esto cierra: entre que el formulario se renderiza y que el
-    // funcionario lo guarda, otro publica una versión nueva. Resolver el código
+    // operador lo guarda, otro publica una versión nueva. Resolver el código
     // al escribir dejaba el consentimiento apuntando a un texto que el titular
     // NUNCA vio, y eso es prueba falsa, no ausencia de prueba.
     $leido = $this->texto;

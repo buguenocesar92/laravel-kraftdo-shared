@@ -8,7 +8,7 @@ use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
 beforeEach(function () {
     config(['privacidad.sistema' => 'discapacidad']);
     $this->finalidad = Finalidad::create([
-        'sistema' => 'discapacidad', 'codigo' => 'registro_comunal', 'nombre' => 'Registro comunal',
+        'sistema' => 'discapacidad', 'codigo' => 'registro_clientes', 'nombre' => 'Registro de clientes',
         'base_licitud' => BaseLicitud::FuncionLegal, 'norma_habilitante' => 'Ley 20.422',
     ]);
 });

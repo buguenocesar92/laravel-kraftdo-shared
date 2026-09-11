@@ -587,7 +587,7 @@ it('toda columna clasificable de una tabla barrida está clasificada', function 
 
 it('los ids de usuario no sobreviven en las filas del titular anonimizado', function () {
     // En un portal de autoatención ese entero es la cuenta del propio titular, y el
-    // módulo no puede distinguirlo del id de un funcionario: guarda Auth::id()
+    // módulo no puede distinguirlo del id de un operador: guarda Auth::id()
     // sin preguntar. Conservarlo dejaría un puntero directo a la persona que
     // ninguna guardia de texto ve.
     app(AplicarRetencion::class)->ejecutar(simulacion: false);
@@ -606,7 +606,7 @@ it('los ids de usuario no sobreviven en las filas del titular anonimizado', func
 
     expect($conUsuario)->toBe([])
         // Y en las filas de la persona vigente el id sigue: la trazabilidad del
-        // funcionario se pierde solo donde ya no hay a quién trazar.
+        // operador se pierde solo donde ya no hay a quién trazar.
         ->and(DB::table('privacidad_solicitudes')
             ->where('titular_id', $this->vigente->getKey())
             ->whereNotNull('user_registro_id')

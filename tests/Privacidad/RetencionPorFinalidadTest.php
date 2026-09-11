@@ -94,7 +94,7 @@ it('anonimiza a quien venció en todas las finalidades con plazo', function () {
 
 it('el resumen distingue las personas distintas de la suma por finalidad', function () {
     // La suma por finalidad es 3 (2 en la corta + 1 en la larga) sobre 2
-    // personas: leído como total, un funcionario cree que hay más gente por
+    // personas: leído como total, un operador cree que hay más gente por
     // suprimir de la que hay, y encima de la que se va a suprimir.
     $resumen = app(AplicarRetencion::class)->ejecutar(simulacion: true);
 

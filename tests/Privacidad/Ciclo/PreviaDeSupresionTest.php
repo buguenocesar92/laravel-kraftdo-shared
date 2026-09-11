@@ -65,7 +65,7 @@ it('junta el aviso de separación de funciones con la previa', function () {
     expect($texto)->toContain('Esta solicitud la recibiste tú');
 });
 
-it('sin coincidencia de funcionario, entrega solo la previa', function () {
+it('sin coincidencia de operador, entrega solo la previa', function () {
     $texto = PreviaDeSupresion::antesDeSuprimir($this->solicitud, 9);
 
     expect($texto)->not->toContain('Esta solicitud la recibiste tú')
