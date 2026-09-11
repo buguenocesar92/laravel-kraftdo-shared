@@ -6,8 +6,8 @@ use Kraftdo\Shared\Seguridad\CredencialesDePlantilla;
  * Candado de arranque: ningún sistema del ecosistema puede llegar a producción
  * con la contraseña que trae el `.env.example` del scaffold —pública, porque el
  * repositorio lo es—. Copiado desde `App\Support\CredencialesDePlantilla` del
- * scaffold, que hasta esta versión era la ÚNICA protección: los ocho sistemas
- * generados a partir de él no tenían la clase.
+ * scaffold, que hasta esta versión era la ÚNICA protección: los sistemas del
+ * ecosistema generados a partir de él no tenían la clase.
  */
 /**
  * El entorno se restaura después de CADA caso.
@@ -82,7 +82,7 @@ it('sin clave de aplicación no lanza: es el arranque de composer install / pack
 
 it('con una contraseña propia, el sistema arranca en producción', function () {
     app()['env'] = 'production';
-    config()->set('database.connections.testing.password', 'una-contrasena-propia-del-municipio');
+    config()->set('database.connections.testing.password', 'una-contrasena-propia-del-sistema');
     config()->set('backup.backup.password', 'otra-propia-tambien');
 
     CredencialesDePlantilla::comprobar();

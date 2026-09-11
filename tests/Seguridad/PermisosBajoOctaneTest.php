@@ -7,15 +7,16 @@ use PHPUnit\Framework\AssertionFailedError;
 
 /**
  * `config/permission.php` estaba «copiado en 6 sistemas» y era engañoso: es el
- * config que publica `spatie/laravel-permission`, no código municipal. Medido:
- * los 7 sistemas que lo tienen coinciden en TODOS los valores, y solo UNO se
- * aparta del valor por omisión del vendor —`register_octane_reset_listener`,
- * `true` en los 7 contra `false` en spatie—.
+ * config que publica `spatie/laravel-permission`, no código del ecosistema.
+ * Medido: los sistemas que lo tienen coinciden en TODOS los valores, y solo
+ * UNO se aparta del valor por omisión del vendor —`register_octane_reset_listener`,
+ * `true` en ellos contra `false` en spatie—.
  *
  * Por eso el archivo NO se mueve al paquete: traerlo obligaría a mantener acá el
- * esquema de configuración de spatie (las copias de 5 sistemas ya se quedaron
- * sin `models.team` y `models.default_model`, que spatie agregó después). Lo que
- * sí es municipal —esa línea— viaja como candado, que es version-proof.
+ * esquema de configuración de spatie (las copias de varios sistemas ya se
+ * quedaron sin `models.team` y `models.default_model`, que spatie agregó
+ * después). Lo que sí es propio del ecosistema —esa línea— viaja como
+ * candado, que es version-proof.
  *
  * Qué pasa si se pierde: bajo Octane el registrador de permisos de spatie
  * conserva su caché en memoria entre peticiones del mismo worker. A quien se le
@@ -68,7 +69,7 @@ it('sin argumento detecta sola que Octane no está instalado, sin reventar', fun
     // `laravel/octane` NO es dependencia de este paquete: el `use` del import
     // tiene que quedar inerte y `class_exists()` devolver false en vez de un
     // fatal. Si alguien cambia la detección por algo que instancie la clase,
-    // esta prueba lo agarra antes que los ocho sistemas.
+    // esta prueba lo agarra antes que los sistemas del ecosistema.
     config()->set('permission.register_octane_reset_listener', false);
 
     expect(class_exists(Octane::class))->toBeFalse()

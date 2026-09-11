@@ -16,9 +16,9 @@ use Laravel\Octane\Octane;
  * `permission.register_octane_reset_listener` es lo que engancha el listener que
  * lo suelta, y **el valor por omisión de spatie es `false`**.
  *
- * Los ocho sistemas del ecosistema despliegan sobre FrankenPHP/Octane y los
- * siete que publicaron `config/permission.php` lo tienen en `true`. Ese es —
- * medido, valor por valor— el ÚNICO apartamiento municipal respecto del config
+ * Los sistemas del ecosistema despliegan sobre FrankenPHP/Octane y los que
+ * publicaron `config/permission.php` lo tienen en `true`. Ese es —medido,
+ * valor por valor— el ÚNICO apartamiento del ecosistema respecto del config
  * que publica spatie: todo lo demás de esos 206 (o 52) renglones son sus
  * defaults y sus comentarios.
  *
@@ -43,7 +43,7 @@ final class PermisosBajoOctane
 
         // Sin Octane el registro muere con la petición y no hay nada que soltar.
         // Sin spatie/permission instalado tampoco hay nada que mirar: el config
-        // no existe y exigirlo rompería a atencionvecino, que no lo usa.
+        // no existe y exigirlo rompería a un sistema sin panel, que no lo usa.
         if (! $conOctane || config('permission') === null) {
             return [];
         }

@@ -20,8 +20,9 @@ use RuntimeException;
  * público, así que esos valores los conoce cualquiera que haya visto el
  * repositorio: en producción dejan de ser una comodidad y pasan a ser una
  * puerta abierta con la llave puesta. La auditoría del 2026-09-05 encontró que
- * esta guarda vivía SOLO en el scaffold: los ocho sistemas generados a partir de
- * él no tienen la clase, y su `.env.example` sigue trayendo el mismo valor.
+ * esta guarda vivía SOLO en el scaffold: los sistemas del ecosistema generados a
+ * partir de él no tienen la clase, y su `.env.example` sigue trayendo el mismo
+ * valor.
  *
  * Por eso vive acá, en el paquete compartido, y el arranque de cada sistema la
  * llama sola —ver `KraftdoSharedServiceProvider::boot()`—: no es un paso que un
