@@ -24,7 +24,7 @@ class Solicitudes
      * fuera era el defecto: un niño de 10 años no podía consentir que le
      * publicaran una foto y sí podía llevarse la copia íntegra de su registro
      * de discapacidad —datos de salud—, que le acogieran una supresión que lo
-     * borra de un registro comunal del que su familia puede depender, o una
+     * borra de un registro del que su familia puede depender, o una
      * rectificación que se propaga al maestro federado de personas. La
      * asimetría no la había decidido nadie: `Solicitudes` simplemente nunca
      * consultó `Edades`.
@@ -69,7 +69,7 @@ class Solicitudes
         // Entregar datos personales a quien no acreditó ser el titular es la
         // fuga más fácil de cometer y la más difícil de explicar después.
         //
-        // Va primero a propósito: si faltan varias cosas, lo que el funcionario
+        // Va primero a propósito: si faltan varias cosas, lo que el operador
         // tiene que resolver antes que nada es quién es el que está al otro
         // lado del mesón.
         if (! $verificacion->verificado) {

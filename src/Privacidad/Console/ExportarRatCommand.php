@@ -73,14 +73,12 @@ class ExportarRatCommand extends Command
                     'categorias_datos' => $f->categorias_datos,
                     // `destinatarios` no se exporta: es la columna que
                     // `encargados` (abajo, con contrato y vigencia) reemplazó.
-                    // En el sistema verificado en vivo venía `null` en las
-                    // seis finalidades, incluida la que sí tiene un
-                    // `Encargado` declarado (Maestro de Personas) — es decir,
-                    // exportar el legado junto al reemplazo no sumaba
-                    // información, la contradecía: alguien que solo mirara
-                    // `destinatarios` leería «nadie» donde `encargados` dice
-                    // que sí hay alguien. Ver docs/privacidad/verificacion-
-                    // adopcion-discapacidad.md, hallazgo 9.
+                    // En la verificación en vivo venía `null` en todas las
+                    // finalidades, incluida la que sí tiene un `Encargado`
+                    // declarado — es decir, exportar el legado junto al
+                    // reemplazo no sumaba información, la contradecía: alguien
+                    // que solo mirara `destinatarios` leería «nadie» donde
+                    // `encargados` dice que sí hay alguien.
                     'encargados' => $f->encargados->map(fn (Encargado $e): array => [
                         'nombre' => $e->nombre,
                         'rol' => $e->rol,

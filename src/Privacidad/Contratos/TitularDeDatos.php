@@ -4,7 +4,7 @@ namespace Kraftdo\Shared\Privacidad\Contratos;
 
 /**
  * Lo implementa el modelo que representa a la persona en cada sistema
- * (`Persona` en los municipales, `User` donde corresponda).
+ * (`Persona` en unos, `User` en otros, según corresponda).
  *
  * El módulo no conoce el modelo de datos de nadie: pide lo que sigue y el
  * sistema decide qué significan en su esquema. (Sin número en esta frase a
@@ -31,7 +31,7 @@ interface TitularDeDatos
 
     /**
      * Deja el registro sin capacidad de reidentificación, conservando lo que
-     * sirve para estadística comunal.
+     * sirve para estadística agregada.
      */
     public function anonimizar(): void;
 

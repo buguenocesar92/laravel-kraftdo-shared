@@ -60,7 +60,7 @@ class Bitacora
      *
      * Los ids de usuario (`user_id`, `user_registro_id`, `user_resolucion_id`)
      * SE SUPRIMEN, y la decisión merece quedar escrita porque la intuición dice
-     * lo contrario. En un panel de funcionarios ese id es el funcionario que
+     * lo contrario. En un panel de operadores ese id es el operador que
      * actuó, no la persona, y conservarlo parece rendición de cuentas. Pero este
      * es un paquete compartido y no puede ver el modelo de autenticación del
      * sistema que lo adopta: `BitacoraEnBaseDeDatos` guarda `Auth::id()` sin
@@ -69,7 +69,7 @@ class Bitacora
      * columna deja de ser trazabilidad y pasa a ser un puntero directo a la
      * persona, entero y sin hashear, que ninguna de las guardias de texto
      * detecta. Equivocarse conservando deja un identificador vivo; equivocarse
-     * suprimiendo cuesta saber qué funcionario tramitó un caso YA anonimizado,
+     * suprimiendo cuesta saber qué operador tramitó un caso YA anonimizado,
      * que además el adoptante suele tener en su propio activity_log.
      *
      * Lo que NO se toca es el hecho auditable: tipo, estado, fechas, medio y la
@@ -143,7 +143,7 @@ class Bitacora
             // adoptante con portal de autoatención ese entero puede ser la cuenta del
             // propio titular.
             'user_levanta_id' => null,
-            // Prosa dictada por el funcionario que aplica el bloqueo («la hija
+            // Prosa dictada por el operador que aplica el bloqueo («la hija
             // llamó a reclamar por el apellido», «se opone y adjunta cédula de
             // la madre»): puede nombrar al titular o a un tercero. NOT NULL,
             // va con centinela, igual que `detalle` en las solicitudes.
@@ -157,7 +157,7 @@ class Bitacora
             // «este bloqueo lo abrió esta solicitud», que es justo el hecho
             // auditable que el bloqueo existe para dejar constancia.
             'motivo' => self::SUPRIMIDO,
-            // Misma prosa de funcionario que `motivo`, del otro lado del hecho:
+            // Misma prosa de operador que `motivo`, del otro lado del hecho:
             // «la hija volvió a llamar y retiró el reclamo». Va a null y no al
             // centinela porque la columna es nullable: poner «[suprimido al
             // anonimizar]» en las filas que nunca se levantaron las haría

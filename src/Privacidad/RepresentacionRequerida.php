@@ -8,7 +8,7 @@ use DomainException;
  * El titular es NNA y se pidió que actuara solo.
  *
  * Se separó de `EdadNoAcreditada`, y la razón no es de prolijidad: las dos
- * excepciones piden acciones DISTINTAS del funcionario que las ve. Con la edad
+ * excepciones piden acciones DISTINTAS del operador que las ve. Con la edad
  * sin acreditar, el mesón tiene que pedir un documento que pruebe la fecha de
  * nacimiento; acá la edad ESTÁ acreditada y lo que falta es que firme el
  * representante legal. Mientras compartieron clase, un panel que siguiera el

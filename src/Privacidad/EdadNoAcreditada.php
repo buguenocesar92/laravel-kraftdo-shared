@@ -10,13 +10,13 @@ use DomainException;
  *
  * UNA sola cosa, y esto antes no era así: la clase cubría también «un menor
  * intentó consentir solo», que es un estado distinto y pide una acción
- * distinta del funcionario. Eso vive ahora en `RepresentacionRequerida`; acá
+ * distinta del operador. Eso vive ahora en `RepresentacionRequerida`; acá
  * queda solo la edad desconocida, que es lo que el nombre dice.
  *
  * Falla en vez de asumir mayoría de edad. Los dos errores posibles no cuestan lo
  * mismo: equivocarse hacia acá cuesta que alguien tenga que ir a acreditar una
  * fecha de nacimiento; equivocarse hacia el otro lado es dar por válido el
- * consentimiento de un menor. Un registro comunal de discapacidad —el primer
+ * consentimiento de un menor. Un registro de discapacidad —el primer
  * consumidor del módulo— tiene menores con certeza.
  *
  * Es `DomainException` y no una excepción de validación porque el estado que

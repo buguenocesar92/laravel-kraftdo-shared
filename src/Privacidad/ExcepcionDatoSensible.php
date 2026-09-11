@@ -10,7 +10,7 @@ namespace Kraftdo\Shared\Privacidad;
  * Hay que decir además por qué se puede tocar.
  *
  * REVISIÓN JURÍDICA: este catálogo se propone desde el texto de la ley, pero
- * cuál aplica a cada finalidad municipal es una calificación legal. El código
+ * cuál aplica a cada finalidad es una calificación legal. El código
  * obliga a declarar una; no puede decidir cuál.
  */
 enum ExcepcionDatoSensible: string

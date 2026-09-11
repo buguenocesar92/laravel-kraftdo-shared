@@ -96,7 +96,7 @@ final class InmutabilidadEnBaseDeDatos
      * la peor: con la primera versión del trigger puesta,
      * `update privacidad_bitacora set user_id = 999, titular_id = 4242` pasaba
      * sin excepción en los dos motores. O sea que se podía reasignar una acción
-     * a otro funcionario, o volver a colgar de un titular cualquiera una fila ya
+     * a otro operador, o volver a colgar de un titular cualquiera una fila ya
      * anonimizada, sin tocar una letra de QUÉ pasó. El trigger congelaba el
      * hecho y dejaba reescribible quién lo hizo.
      *

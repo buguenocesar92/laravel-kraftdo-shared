@@ -36,7 +36,7 @@ class ExportacionDeDatos
         // Las tres reglas —qué tipo da derecho, qué estado lo niega y que haya
         // titular vigente— viven en `EntregaDeCopia`, para que los paneles
         // puedan PREGUNTAR antes de ofrecer el botón en vez de descubrirlo con
-        // una excepción cuando el funcionario ya lo apretó delante del vecino.
+        // una excepción cuando el operador ya lo apretó delante del titular.
         $motivo = EntregaDeCopia::porQueNo($solicitud);
 
         if ($motivo !== null) {

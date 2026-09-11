@@ -8,7 +8,7 @@ use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
  * Hasta dónde alcanza el derecho de supresión de UN titular, según el RAT.
  *
  * Se calcula sin efectos —`Supresiones::evaluar()` no escribe nada— para que un
- * panel pueda mostrarle al funcionario qué va a pasar ANTES de que resuelva, y
+ * panel pueda mostrarle al operador qué va a pasar ANTES de que resuelva, y
  * para que el fundamento que le escriba al titular pueda citar la norma que
  * impide en vez de inventarla.
  *
@@ -35,7 +35,7 @@ final readonly class EvaluacionDeSupresion
      * Nada impide suprimir: se destruye todo.
      *
      * Un sistema que no declaró NINGUNA finalidad activa cae acá, y es
-     * deliberado: no tiene con qué negarse. Un municipio no puede oponerle al
+     * deliberado: no tiene con qué negarse. Una organización no puede oponerle al
      * titular una obligación de conservación que nunca declaró a la autoridad
      * —el RAT es justamente el documento donde se declara—, y el barrido por
      * retención ya trata igual a las finalidades que no lo alcanzan.
@@ -106,7 +106,7 @@ final readonly class EvaluacionDeSupresion
     }
 
     /**
-     * El texto que se le puede mostrar al funcionario y citar al titular.
+     * El texto que se le puede mostrar al operador y citar al titular.
      *
      * Lleva la norma y el plazo, que es lo que convierte una negativa en una
      * respuesta fundada: «no se puede todavía» sin la cita es exactamente la

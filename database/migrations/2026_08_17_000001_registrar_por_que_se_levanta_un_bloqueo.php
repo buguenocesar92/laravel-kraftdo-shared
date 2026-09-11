@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Schema;
  * falta el lugar donde diga por qué.
  *
  * No se reutiliza `motivo`: ese texto explica por qué se SUSPENDIÓ el
- * tratamiento y pisarlo borraría justamente lo que un funcionario lee para
+ * tratamiento y pisarlo borraría justamente lo que un operador lee para
  * entender el caso. Son dos hechos distintos y van en dos columnas distintas.
  *
  * Y no va a la bitácora, que sería el lugar natural para un fundamento: su

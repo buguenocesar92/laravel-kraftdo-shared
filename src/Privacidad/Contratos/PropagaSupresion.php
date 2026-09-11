@@ -13,7 +13,7 @@ use Kraftdo\Shared\Privacidad\ResultadoDePropagacion;
  *
  * 1. **No mandar nada.** La identidad completa del titular sigue viva en el
  *    registro federado y disponible para los otros siete sistemas por RUT. El
- *    municipio le respondería a la Agencia «suprimimos» y sería falso.
+ *    organización le respondería a la Agencia «suprimimos» y sería falso.
  * 2. **Mandar la persona anonimizada.** El maestro hace upsert por RUT y
  *    `ANON-{id}` es un RUT que no existía: crea una persona NUEVA y deja la
  *    real intacta. Verificado: 120 filas basura en 60 anonimizaciones.

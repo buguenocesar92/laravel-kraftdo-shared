@@ -10,7 +10,7 @@ use DomainException;
  *
  * Por qué el módulo se pone exigente acá: `Solicitante` ya distinguía quién
  * actúa, pero elegir «representante legal» en un desplegable no acredita nada.
- * Un régimen reforzado que un funcionario satisface seleccionando una opción no
+ * Un régimen reforzado que un operador satisface seleccionando una opción no
  * es un régimen —la fila decía «lo otorgó su representante legal» sin que
  * existiera ni un documento ni una identidad detrás—, y ese es justo el papel
  * que hay que mostrar cuando alguien fiscaliza o cuando la familia discute

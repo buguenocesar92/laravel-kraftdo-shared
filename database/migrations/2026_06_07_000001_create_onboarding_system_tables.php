@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('onboarding_tours', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('system', 50); // ej. 'omil', 'feria', 'hub', 'admin'
+            $table->string('system', 50); // ej. 'crm', 'sitio', 'hub', 'admin'
             $table->string('role', 100);   // rol al que aplica el tour (ej. 'administrador', 'operador')
             $table->string('surface', 50)->nullable(); // ej. 'app', 'panel', 'hub'
             $table->boolean('active')->default(true);

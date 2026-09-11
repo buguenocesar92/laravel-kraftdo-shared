@@ -238,8 +238,8 @@ class Consentimientos
      * Acá vivía el defecto grave de esta clase, y conviene decirlo entero
      * porque la versión anterior parecía la natural: se aceptaba
      * `codigo_texto` y se resolvía con `Textos::vigente()` AL ESCRIBIR. Entre
-     * que el formulario se renderiza y que el funcionario lo guarda cabe una
-     * publicación —dos funcionarios trabajando, que es el caso que
+     * que el formulario se renderiza y que el operador lo guarda cabe una
+     * publicación —dos operadores trabajando, que es el caso que
      * `Textos::publicar()` ya contempla—, y entonces el consentimiento quedaba
      * apuntando a un texto que el titular nunca vio. Eso no es un registro
      * incompleto: es prueba falsa, y en una fiscalización pesa peor que el
@@ -300,7 +300,7 @@ class Consentimientos
         // El RAT es por sistema y `Textos::vigente()` filtra por sistema, así
         // que una fila de otro sistema solo puede llegar acá por error de
         // cableado; dejarla pasar acreditaría el consentimiento con el aviso de
-        // otro registro comunal.
+        // otro registro.
         if ($texto->sistema !== (string) config('privacidad.sistema')) {
             throw new TextoNoPublicado(
                 "El texto #{$texto->getKey()} pertenece al sistema «{$texto->sistema}» y este es "
@@ -353,7 +353,7 @@ class Consentimientos
         //
         // Excepción propia y NO `EdadNoAcreditada`: acá la edad está acreditada
         // —por eso llegamos hasta esta línea— y lo que falta es el
-        // representante. Compartir clase mandaba al funcionario a buscar un
+        // representante. Compartir clase mandaba al operador a buscar un
         // certificado de nacimiento que ya no hacía falta.
         if ($otorgadoPor !== Solicitante::RepresentanteLegal) {
             throw new RepresentacionRequerida(

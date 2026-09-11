@@ -20,7 +20,7 @@ class Textos
      * número de versión.
      *
      * Tres y no «hasta que salga»: dos publicaciones simultáneas del mismo
-     * texto es lo que puede pasar de verdad —dos funcionarios guardando el
+     * texto es lo que puede pasar de verdad —dos operadores guardando el
      * mismo aviso—, y para eso alcanza con recalcular una vez. Si choca tres
      * veces seguidas ya no es una carrera, es algo que reintentar no arregla
      * (un índice roto, un proceso publicando en bucle), y ahí conviene que
@@ -46,7 +46,7 @@ class Textos
      * incluido, porque todo va dentro de la transacción; el reintento vuelve a
      * leer el estado ya con la versión del ganador publicada, le cierra la
      * vigencia a ESA y se numera detrás. Sin reintento, cada adoptante tendría
-     * que escribir el suyo o mostrarle un error a un funcionario que no hizo
+     * que escribir el suyo o mostrarle un error a un operador que no hizo
      * nada mal.
      *
      * QUE EL REINTENTO SIRVA NO ERA GRATIS, y acá este docblock prometía de más:

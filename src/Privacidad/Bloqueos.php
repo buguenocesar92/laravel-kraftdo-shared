@@ -130,7 +130,7 @@ class Bloqueos
      *    suspensión que termina sin ninguna explicación es exactamente lo que no
      *    se puede mostrar en una fiscalización.
      * 2. **No pisa `motivo`.** Ese texto dice por qué se suspendió y es lo único
-     *    que un funcionario lee para entender el caso; el porqué del
+     *    que un operador lee para entender el caso; el porqué del
      *    levantamiento es otro hecho y va en su propia columna.
      * 3. **Un sistema no levanta el bloqueo de otro.** Es la contraparte de la
      *    decisión de alcance del docblock de la clase: si el bloqueo de un sistema
@@ -172,7 +172,7 @@ class Bloqueos
 
         return DB::transaction(function () use ($bloqueo, $motivo): bool {
             // Condicionado a `vigentes()` y no un save() sobre la instancia: dos
-            // funcionarios levantando el mismo bloqueo en el mesón, y el segundo
+            // operadores levantando el mismo bloqueo en el mesón, y el segundo
             // pisaría la fecha y el motivo del primero con los suyos. Así el
             // segundo no escribe nada y se entera por el `false`.
             $afectados = Bloqueo::query()
@@ -199,7 +199,7 @@ class Bloqueos
             //
             // El motivo NO viaja: la invariante de `privacidad_bitacora.datos`
             // es nombres de campo e ids, nunca prosa, y esta prosa la dicta un
-            // funcionario y puede nombrar al titular o a un tercero. Vive en la
+            // operador y puede nombrar al titular o a un tercero. Vive en la
             // columna, que el barrido de `Bitacora::desvincular()` sí alcanza.
             $this->evidencia->registrar('bloqueo.levantado', [
                 'bloqueo_id' => $bloqueo->getKey(),
@@ -251,7 +251,7 @@ class Bloqueos
      * 1. **Reescribir el motivo.** El que puso `Solicitudes::registrar()` dice
      *    «Solicitud de Oposición en trámite», y después de la resolución eso ya
      *    no es cierto: quien lea la tabla vería un trámite abierto donde hay una
-     *    decisión tomada. El motivo es lo único que un funcionario lee para
+     *    decisión tomada. El motivo es lo único que un operador lee para
      *    saber por qué no puede tratar ese dato.
      * 2. **Crear el bloqueo si no había ninguno.** `bloquear_durante_solicitud`
      *    es configurable y puede estar apagada; sin esto, acoger una oposición
@@ -355,7 +355,7 @@ class Bloqueos
      * - El bloqueo **definitivo** de una oposición o una supresión acogidas. Ahí
      *   la organización resolvió que deja de tratar el dato, y escribir sobre él no
      *   es cumplir nada.
-     * - Un bloqueo **sin solicitud** —puesto a mano por un funcionario—. El
+     * - Un bloqueo **sin solicitud** —puesto a mano por un operador—. El
      *   módulo no tiene con qué saber que esa suspensión admita correcciones.
      * - El bloqueo de una rectificación **ya resuelta** que siguiera vigente: sin
      *   trámite abierto no hay derecho en curso que la corrección esté cumpliendo.
@@ -388,7 +388,7 @@ class Bloqueos
      * esto, «el titular ya se opuso en otra ventanilla» sería un hecho escrito en
      * la base que ningún sistema puede ver, y el riesgo de cesar de menos —o
      * sea, de incumplir un derecho ya ejercido— quedaría silencioso. Con esto,
-     * un panel puede mostrarle al funcionario que el titular ejerció el derecho
+     * un panel puede mostrarle al operador que el titular ejerció el derecho
      * en otro sistema para que alguien decida qué corresponde acá.
      *
      * Lo que devuelve NO es una respuesta a «¿puedo tratar el dato?»: para eso

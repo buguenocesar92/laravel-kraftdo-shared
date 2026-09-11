@@ -18,7 +18,7 @@ use Kraftdo\Shared\Privacidad\CifradoCast;
  * @property string|null $titular_ref
  * @property int|null $finalidad_id null = todas las finalidades
  * @property int|null $solicitud_id
- * @property string $motivo prosa dictada por el funcionario; cifrada en la
+ * @property string $motivo prosa dictada por el operador; cifrada en la
  *                          base (ver CifradoCast)
  * @property Carbon $desde
  * @property Carbon|null $levantado_en
@@ -38,7 +38,7 @@ class Bloqueo extends Model
     protected $casts = [
         'desde' => 'datetime',
         'levantado_en' => 'datetime',
-        // Los dos motivos los dicta un funcionario y nombran al titular o a un
+        // Los dos motivos los dicta un operador y nombran al titular o a un
         // tercero («la hija llamó a reclamar por el apellido»). Cifrados en
         // reposo. `Bloqueos::levantar()` y `volverDefinitivos()` los escriben
         // por `update()` masivo, que no pasa por acá: cifran a mano con el

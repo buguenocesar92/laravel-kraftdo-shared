@@ -11,7 +11,7 @@ use Kraftdo\Shared\Privacidad\ResultadoDeSupresion;
  * Los desenlaces se cuentan distinto a propósito: una acogida parcial NO borró
  * nada, y anunciarla con el mismo «listo» que la supresión total sería la
  * confusión que esta clase existe para cerrar. Y dentro de la total hay una
- * segunda distinción: destruir el dato local no es lo mismo que sacar al vecino
+ * segunda distinción: destruir el dato local no es lo mismo que sacar al titular
  * del ecosistema. Hasta que el registro maestro conteste que aceptó, no hay
  * con qué afirmar que la identidad dejó de servirse por RUT a los otros
  * sistemas.

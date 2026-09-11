@@ -7,12 +7,12 @@ use Kraftdo\Shared\Privacidad\Modelos\Solicitud;
 use Kraftdo\Shared\Privacidad\Supresiones;
 
 /**
- * Lo que el funcionario ve ANTES de suprimir: hasta dónde llega el derecho de
+ * Lo que el operador ve ANTES de suprimir: hasta dónde llega el derecho de
  * este titular según el RAT.
  *
  * `Supresiones::evaluar()` no escribe nada —existe justamente para poder mostrar
  * esto antes de resolver— y su explicación cita la norma y el plazo, que es lo
- * que el funcionario tiene que copiar en el fundamento.
+ * que el operador tiene que copiar en el fundamento.
  */
 final class PreviaDeSupresion
 {

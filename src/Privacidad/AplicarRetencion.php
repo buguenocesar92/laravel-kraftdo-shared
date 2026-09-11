@@ -14,13 +14,13 @@ use Kraftdo\Shared\Privacidad\Modelos\Finalidad;
 /**
  * La ley pide suprimir cuando el dato ya no es necesario para la finalidad.
  * Acá eso son dos cosas distintas: los sensibles se borran de verdad y el
- * registro se anonimiza, para no perder la serie estadística comunal.
+ * registro se anonimiza, para no perder la serie estadística agregada.
  *
  * Y una persona está terminada cuando ya no la necesita NINGUNA finalidad, no
  * cuando venció la primera. La versión anterior recorría finalidad por finalidad
  * y anonimizaba de inmediato, con lo que el plazo más corto del RAT se llevaba
  * puesto a todos los demás: en la corrida real, `agenda_citas` (24 meses)
- * anonimizó a 11.517 personas que `registro_comunal` (120 meses) tenía que
+ * anonimizó a 11.517 personas que `registro_clientes` (120 meses) tenía que
  * conservar. Los plazos de 60 y 120 declarados a la autoridad no significaban
  * nada; el único que operaba era el mínimo de la tabla.
  */
@@ -96,7 +96,7 @@ class AplicarRetencion
      *
      * Lo que sí crece con el padrón, dicho para que no sorprenda: el conteo tiene
      * una entrada por persona vencida en al menos una finalidad. Son cadenas
-     * cortas (unas decenas de bytes cada una), así que a la escala municipal
+     * cortas (unas decenas de bytes cada una), así que a esa escala
      * —decenas de miles— no es problema; a la escala de un padrón nacional
      * habría que cambiarlo por una tabla temporal.
      *
@@ -224,7 +224,7 @@ class AplicarRetencion
             // contra que maten el proceso: la corrida real murió por timeout a
             // los 10 minutos con 10.131 personas anonimizadas y CERO
             // constancias. A ~17 personas por segundo sobre el backlog de un
-            // registro comunal, morir por timeout, OOM o deploy es el desenlace
+            // registro de clientes, morir por timeout, OOM o deploy es el desenlace
             // probable, no el raro.
             //
             // Las constancias son ACUMULADAS, no sumables: cada una lleva el

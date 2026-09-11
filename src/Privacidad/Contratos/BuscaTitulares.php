@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * atendió.
  *
  * Las dos operaciones son distintas a propósito: el formulario busca sobre lo
- * que el funcionario tipea, y la recepción resuelve la clave elegida en un
+ * que el operador tipea, y la recepción resuelve la clave elegida en un
  * titular de verdad. Un solo método obligaría a volver a buscar por texto para
  * recuperar a alguien que ya se había elegido.
  *

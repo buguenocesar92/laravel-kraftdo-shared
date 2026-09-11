@@ -10,7 +10,7 @@ namespace Kraftdo\Shared\Privacidad;
  * invariante de dato sensible hacía `array_intersect` contra ocho literales
  * exactos: cualquier variante -mayúscula, sinónimo, error de tipeo- pasaba de
  * largo y quedaba tratada como NO sensible en silencio. `'discapacidad'`
- * escrita por un funcionario nunca coincidía con `'salud'`, y el registro que
+ * escrita por un operador nunca coincidía con `'salud'`, y el registro que
  * este módulo existe para proteger quedaba sin la excepción legal declarada.
  * Un enum backed hace el catálogo total: lo que no está en la lista no se
  * guarda, no se cuela.
@@ -29,7 +29,7 @@ enum CategoriaDato: string
     /**
      * Es la categoría central del registro de discapacidad -el propio motivo
      * de ser de este módulo- y datos de salud según la ley. Es también la
-     * palabra que un funcionario municipal escribe más probablemente: por
+     * palabra que un operador escribe más probablemente: por
      * eso necesita su propio caso y no puede depender de que alguien recuerde
      * escribir `salud` en su lugar.
      */

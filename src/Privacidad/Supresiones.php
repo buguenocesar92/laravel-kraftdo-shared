@@ -16,7 +16,7 @@ use Throwable;
  * vencimiento del plazo (`AplicarRetencion`).
  *
  * Existe porque faltaba la pieza y su ausencia producía el peor estado posible:
- * el titular pedía que borraran sus datos, el funcionario acogía la solicitud
+ * el titular pedía que borraran sus datos, el operador acogía la solicitud
  * con `Solicitudes::acoger()` —que sella la fila como resuelta— y los datos
  * seguían enteros. Un registro que certifica por escrito un cumplimiento que no
  * ocurrió es peor que no haber tramitado nada: la solicitud queda cerrada, el
@@ -158,7 +158,7 @@ class Supresiones
      * `tomar()` va antes de todo lo destructivo y fuera de la transacción, como
      * en `Rectificaciones`: si el maestro rechaza, la solicitud tiene que
      * seguir viéndose "en trámite" y no volver a "recibida" como si nadie la
-     * hubiera mirado. Un funcionario tiene que poder ver que se intentó y falló.
+     * hubiera mirado. Un operador tiene que poder ver que se intentó y falló.
      *
      * @param  ?string  $respuestaPath  el documento de respuesta al titular. En
      *                                  la supresión total se escribe y se borra
@@ -309,7 +309,7 @@ class Supresiones
 
         // El objeto en memoria todavía dice lo que decía antes del barrido: sin
         // esto, un panel que ya tenía cargada la solicitud le mostraría al
-        // funcionario el fundamento que la base acaba de suprimir.
+        // operador el fundamento que la base acaba de suprimir.
         $titular->refresh();
         $solicitud->refresh();
 
@@ -352,7 +352,7 @@ class Supresiones
                 $this->solicitudes->acogerParcialmente($solicitud, $fundamento, $respuestaPath);
 
                 // Las NORMAS quedan escritas en la evidencia, no solo los
-                // códigos: dentro de un año, «registro_comunal» no le dice a
+                // códigos: dentro de un año, «registro_clientes» no le dice a
                 // nadie por qué no se suprimió, y el RAT puede haber cambiado.
                 $this->evidencia->registrar('supresion.parcial', [
                     'solicitud_id' => $solicitud->getKey(),

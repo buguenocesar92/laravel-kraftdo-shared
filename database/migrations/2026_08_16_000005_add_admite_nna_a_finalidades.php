@@ -22,7 +22,7 @@ return new class extends Migration
             // Default true: las finalidades que ya existen vienen tratando
             // menores desde antes de esta columna. Un default false las apagaría
             // retroactivamente y dejaría sin base los consentimientos vigentes
-            // de un registro comunal en producción. Prohibir NNA es una decisión
+            // de un registro real en producción. Prohibir NNA es una decisión
             // que alguien toma finalidad por finalidad, no un efecto secundario
             // de correr una migración.
             $table->boolean('admite_nna')->default(true)->after('es_accesoria');

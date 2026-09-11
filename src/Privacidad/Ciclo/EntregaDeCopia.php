@@ -13,7 +13,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
  * Vive en el módulo porque son tres reglas legales, no tres condiciones de
  * pantalla, y porque el panel que no las aplique ofrece un botón que revienta:
  * `ExportacionDeDatos::paraSolicitud()` se niega igual, pero recién cuando el
- * funcionario ya lo apretó delante del vecino.
+ * operador ya lo apretó delante del titular.
  */
 final class EntregaDeCopia
 {

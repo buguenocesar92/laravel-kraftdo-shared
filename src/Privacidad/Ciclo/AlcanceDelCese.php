@@ -8,7 +8,7 @@ use Kraftdo\Shared\Privacidad\TipoDeSolicitud;
 /**
  * Qué deja de hacer ESTE sistema cuando un bloqueo queda vigente.
  *
- * La frase es la que el funcionario le repite al titular, así que la escribe el
+ * La frase es la que el operador le repite al titular, así que la escribe el
  * adoptante y no el paquete: el mapeo tratamiento→finalidad —qué pantalla, qué
  * CSV, qué correo y qué job dejan de tocar a esa persona— es propio de cada
  * sistema, y el módulo no lo conoce ni lo puede ejecutar.
