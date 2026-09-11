@@ -38,6 +38,7 @@ abstract class SystemNotification extends Notification
      * Construye un MailMessage con la vista Markdown indicada. La vista hereda
      * el layout de correo del sistema.
      *
+     * @param  view-string  $vista
      * @param  array<string, mixed>  $data
      */
     protected function correo(string $asunto, string $vista, array $data = []): MailMessage
